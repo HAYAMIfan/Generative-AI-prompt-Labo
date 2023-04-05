@@ -1,0 +1,63 @@
+<header class="alert-danger shadow-sm p-1">
+  <nav class="navbar navbar-expand-lg navbar-light text-right">
+    <div class="container mr-0">
+      <a class="navbar-brand" href="/"><%= image_tag("logo.png") %></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ml-auto">
+
+          <!--userがログインしている時-->
+          <% if user_signed_in? %>
+            <% unless current_user.is_admin? %>
+              <!--管理者以外がログインした時-->
+              <li>
+                <p class="nav-link text-dark mr-5">ようこそ、<%= current_user.name %>さん！</p>
+              </li>
+              <li class="nav-item">
+                <%= link_to "マイページ", user_path(current_user), class: 'btn btn-outline-secondary mb-3' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "いいね！した投稿", items_path, class: 'btn btn-outline-secondary ml-3 mb-3' %>
+              </li>
+            <% else %>
+              <!--管理者がログインした時-->
+              <li>
+                <p class="nav-link font-weight-bold text-red mr-5">管理者ログイン中！</p>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-3' %>
+            </li>
+            <!--ログインしていない時 -->
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "商品一覧", items_path, class: 'btn btn-outline-secondary ml-3 mb-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-secondary ml-3 mb-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "ログイン", new_user_session_path, class: 'btn btn-outline-secondary ml-3' %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <!--検索窓-->
+      <div class="search_form">
+        <%= form_with url: root_path, method: :get do |f| %>
+          <div class="input-group mb-3">
+            <%= f.text_field :word, class: "form-control search-control mr-1", placeholder: "Search..." %>
+            <%= button_tag type: "submit", class: "btn btn-light " do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -41,13 +41,14 @@
 
 ## 設計図
 
-
+- [`画面遷移&ER図`](https://app.diagrams.net/#G1q1OqrWwuobj3JDz4oqv2tEpHWrA7mG7e)
+- [`ワイヤーフレーム`](https://app.diagrams.net/?libs=general;mockups#G1ZsgHKRIQr0Ujm2d0qnlIFC_qGQ4B4VqM)
 
 ## 開発環境
 
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
-- フレームワーク：Ruby on Rails
+- フレームワーク：Ruby on Rails 6.1.4
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
@@ -59,3 +60,5 @@
 ## 参考にしたサイト
 
 - [`Chat GPT`](https://chat.openai.com/chat)
+- [`フォロー関係`](https://qiita.com/nakachan1994/items/e6107fe3003f6515e385)
+- [`論理削除`](https://qiita.com/__Wata16__/items/9e05596afb671e540365)
