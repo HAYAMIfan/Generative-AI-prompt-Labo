@@ -22,6 +22,7 @@ class PostsController < ApplicationController
 
   def new
     @post= Post.new
+    # 本文のテンプレート
     @post.content = "回答の満足度(10点満点で)：\n\nどんな回答が欲しかったか：\n\n回答の良かったor悪かった所：\n\n呪文について意識した点："
   end
 

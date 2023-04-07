@@ -67,6 +67,7 @@
 - [`Bootstrap`]
 - [`FontAwesome`]
 - [`ActiveStorage`]
+- [`image_processing`]
 - [``]
 
 ## 参考にしたサイト
