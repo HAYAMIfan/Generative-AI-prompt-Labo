@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    @post_comment = PostComment.new
   end
 
   def edit
@@ -22,7 +21,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.order("created_at DESC")
   end
 
   def new
@@ -50,7 +49,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:user_id, :title, :content, :favorite_count, :images )
+    params.require(:post).permit(:user_id, :title, :content, :favorite_count, image: [] )
   end
-
 end

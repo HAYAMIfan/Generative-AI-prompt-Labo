@@ -1,9 +1,30 @@
 <div class="container">
   <div class="row d-flex">
     <!--左側・ユーザー情報-->
-    <div class="col-auto border border-2">
-      <h5><%= @user.name %> さんのユーザーページ</h5>
-      
+    <div class="col-md-4 border border-2">
+      <div>
+        <% if @user.icon.attached? %>
+          <%= image_tag @user.get_icon(128.128) %>
+        <% else %>
+          <%= image_tag "no-icon.png" %>
+        <% end %>
+      </div>
+      <h4 class="my-2"><%= @user.name %></h4>
+      <div>
+        <%= @user.description %>
+      </div>
+      <!--設定・フォロー・停止ボタン-->
+      <div>
+        <% if @user == current_user %>
+          <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog">設定</i>
+          <% end %>
+        <% elsif @user.is_admin? %>
+          <%= link_to edit_user_path(@user), class: "btn btn-danger btn-block" do %>
+            <i class="fas fa-ban">停止する</i>
+          <% end %>
+        <% end %>
+      </div>
     </div>
     <!--右側・各種一覧-->
     <div class="col-auto border border-2">

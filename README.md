@@ -34,8 +34,7 @@
 
 ## 機能
 
-- 呪文と出力結果、自分の欲しかった回答のイメージ、出力結果への満足度を投稿できる。
-- 呪文と出力結果のスクリーンショットを添付できる。
+- 呪文と出力結果のスクリーンショット、キャプションを投稿できる。
 - 気に入った投稿にいいね！を付けられる。
 - 過去に自分がいいね！した投稿を一覧で表示できる。
 - いいね！の多い投稿をランキング形式で一覧表示できる。
@@ -68,10 +67,9 @@
 - [`FontAwesome`]
 - [`ActiveStorage`]
 - [`image_processing`]
-- [``]
+- [`activestorage-validator`]
 
 ## 参考にしたサイト
 
-- [`Chat GPT`](https://chat.openai.com/chat)
-- [`フォロー関係`](https://qiita.com/nakachan1994/items/e6107fe3003f6515e385)
-- [`論理削除`](https://qiita.com/__Wata16__/items/9e05596afb671e540365)
+- [`Chat GPT`](https://chat.openai.com/chat)このPF制作におけるテーマの大元であり、心強い戦友。
+- [`note`](https://note.com/)テーマの大元その２。機能面やレイアウトなどを参考にしています。

@@ -1,10 +1,10 @@
 <div class="container">
   <div class="col-auto justify-content-center border border-2" style="background-color:#fff2e5">
     <h3>新規投稿</h3>
-    <%= form_with model: @post, url: posts_path do |f| %>
+    <%= form_with model: @post do |f| %>
     <div class="justify-content-center mt-3">
-      <%= f.label :images, "スクリーンショット", class: "font-weight-bold justify-content-start mr-2" %>
-      <%= f.file_field :images, multiple: true, accept: "image/*" %>
+      <%= f.label :image, "スクリーンショット", class: "font-weight-bold justify-content-start mr-2" %>
+      <%= f.file_field :image, multiple: true, accept: "image/*" %>
     </div>
 
     <div class="justify-content-center mt-3">
