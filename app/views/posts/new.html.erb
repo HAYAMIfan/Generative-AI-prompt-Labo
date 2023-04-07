@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="col-auto justify-content-center border border-2">
+    <h3>新規投稿</h3>
+    <%= form_with model: @post, url: posts_path do |f| %>
+    <div class="justify-content-center">
+      <label class="font-weight-bold justify-content-start mr-2">スクリーンショットなど</label>
+      <%= f.file_field :image, accept: "image/*" %>
+    </div>
+
+    <div class="justify-content-center">
+      <label class="font-weight-bold justify-content-start">タイトル</label>
+      <%= f.text_area :title, required: true, rows: 2, class: "form-control" %>
+    </div>
+
+    <div class="justify-content-center">
+      <label class="font-weight-bold justify-content-start">本文</label>
+      <%= f.text_area :content, required: true, rows: 20, class: "form-control" %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit '投稿する', class: "btn btn-outline-success" %>
+    </div>
+    <% end %>
+  </div>
+</div>
