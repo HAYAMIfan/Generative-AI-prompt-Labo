@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  has_one_attached :image
+  has_many_attached :images
   belongs_to :user
 
   validates :image, presence: true, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: [ less_than: 1.megabytes] }
