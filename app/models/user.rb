@@ -8,7 +8,12 @@ class User < ApplicationRecord
 
   validates :icon, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
-  def get_icon(width,height)
-    icon.variant( gravity: "center", crop: "128x128+0+0", resize_to_limit: [width,height]).processed
+  # アイコン画像を表示する
+  def get_icon
+    if icon.attached?
+      icon.variant( gravity: "center", crop: "128x128+0+0").processed
+    else
+      "default_icon.png"
+    end
   end
 end

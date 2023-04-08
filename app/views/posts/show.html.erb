@@ -1,7 +1,7 @@
 <div class="container">
   <!--左側　画像エリア-->
   <div class="row">
-    <div class="col-6 overflow-auto" style="height: 900px">
+    <div class="col-6 overflow-auto p-0" style="height: 900px">
     <!--画像を中心基準で幅700で切り抜く(高さはそのままにするために適当に大きな数値)-->
     <% @post.image.each do |image| %>
       <div class="m-4">
@@ -11,11 +11,16 @@
     </div>
 
   <!--右側　文章エリア-->
-    <div　class="col-6" style="width:50%; height: 900px">
+    <div　class="col-6 ml-4" style="width:50%; height: 900px">
       <h2><%= @post.title %></h2>
-      <%= @post.user.name %><br>
-      <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
-      <%= @post.updated_at.strftime("%Y年%m月%d日 %H:%M") %><br>
+      <%= link_to user_path(@post.user_id) do %>
+        <div>
+          <%= image_tag @post.user.get_icon, size: "64x64" %>
+        </div>
+        <h6 class="mt-3 text-muted"><%= @post.user.name %></h6>
+      <% end %>
+      <%= "投稿日時　"+@post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
+      <%= "更新日時　"+@post.updated_at.strftime("%Y年%m月%d日 %H:%M") %><br>
       <%= @post.favorite_count %>
       <div class="overflow-auto" style="background-color:#fff2e5">
         <%=safe_join(@post.content.split("\n"),tag(:br))%>

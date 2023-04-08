@@ -21,7 +21,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.order("created_at DESC")
+    @posts = Post.order("created_at DESC").page(params[:page])
   end
 
   def new
