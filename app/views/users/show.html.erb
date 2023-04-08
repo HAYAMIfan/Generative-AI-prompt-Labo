@@ -4,7 +4,7 @@
     <div class="col-md-4 border border-2">
       <div>
         <% if @user.icon.attached? %>
-          <%= image_tag @user.get_icon(128.128) %>
+          <%= image_tag @user.get_icon(128,128) %>
         <% else %>
           <%= image_tag "no-icon.png" %>
         <% end %>
@@ -17,11 +17,11 @@
       <div>
         <% if @user == current_user %>
           <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog">設定</i>
+            <i class="fas fa-user-cog mr-2"></i>設定する
           <% end %>
         <% elsif @user.is_admin? %>
           <%= link_to edit_user_path(@user), class: "btn btn-danger btn-block" do %>
-            <i class="fas fa-ban">停止する</i>
+            <i class="fas fa-ban mr-2"></i>停止する
           <% end %>
         <% end %>
       </div>

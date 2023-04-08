@@ -1,6 +1,7 @@
-<div class="container d-flex">
-  <div>
-    <div class="overflow-auto col-auto">
+<div class="container">
+  <!--左側　画像エリア-->
+  <div class="row">
+    <div class="col-6 overflow-auto" style="height: 900px">
     <!--画像を中心基準で幅700で切り抜く(高さはそのままにするために適当に大きな数値)-->
     <% @post.image.each do |image| %>
       <div class="m-4">
@@ -8,17 +9,18 @@
       </div>
     <% end %>
     </div>
-  </div>
 
-  <div>
-    <h2><%= @post.title %></h2>
-    <%= @post.user.name %><br>
-    <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
-    <%= @post.updated_at.strftime("%Y年%m月%d日 %H:%M") %><br>
-    <%= @post.favorite_count %>
-    <div class="overflow-auto" style="background-color:#fff2e5">
-      <%= @post.content %>
+  <!--右側　文章エリア-->
+    <div　class="col-6" style="width:50%; height: 900px">
+      <h2><%= @post.title %></h2>
+      <%= @post.user.name %><br>
+      <%= @post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
+      <%= @post.updated_at.strftime("%Y年%m月%d日 %H:%M") %><br>
+      <%= @post.favorite_count %>
+      <div class="overflow-auto" style="background-color:#fff2e5">
+        <%=safe_join(@post.content.split("\n"),tag(:br))%>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>

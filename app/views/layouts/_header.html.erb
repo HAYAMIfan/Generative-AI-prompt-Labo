@@ -13,6 +13,9 @@
           <!--管理者以外がログインした時-->
             <p class="font-weight-bold text-dark">ようこそ、<%= current_user.name %>さん！</p>
           <% end %>
+        <% else %>
+        <!--未ログイン時-->
+          <p class="font-weight-bold text-dark">ようこそ、訪問者さん！</p>
         <% end %>
         <ul class="nav nav-tabs">
           <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link text-reset" %></li>

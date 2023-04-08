@@ -9,6 +9,6 @@ class User < ApplicationRecord
   validates :icon, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
 
   def get_icon(width,height)
-    icon.variant( gravity: "center", crop: "128x128+0+0", resize: [width,height]).processed
+    icon.variant( gravity: "center", crop: "128x128+0+0", resize_to_limit: [width,height]).processed
   end
 end

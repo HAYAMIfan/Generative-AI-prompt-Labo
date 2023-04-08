@@ -2,10 +2,17 @@
   <div class="card-columns">
     <% @posts.each do |post| %>
     <%= link_to post_path(post), class: "text-reset" do %>
-      <div class="card">
+      <div class="card" style="height: 250px">
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>
           <%= link_to user_path(post.user_id) do %>
+            <div>
+              <% if post.user.icon.attached? %>
+                <%= image_tag post.user.get_icon(64,64) %>
+              <% else %>
+                <%= image_tag "no-icon.png", size: "64x64" %>
+              <% end %>
+            </div>
             <h6 class="card-subtitle text-muted"><%= post.user.name %></h6>
           <% end %>
           <p class=text-black-50><%= post.updated_at.strftime("%Y年%m月%d日") %></p>
