@@ -1,25 +1,6 @@
 <div class="container">
   <div class="col-auto justify-content-center border border-2" style="background-color:#fff2e5">
     <h3>新規投稿</h3>
-    <%= form_with model: @post do |f| %>
-    <div class="justify-content-center mt-3">
-      <%= f.label :image, "スクリーンショット", class: "font-weight-bold justify-content-start mr-2" %>
-      <%= f.file_field :image, multiple: true, accept: "image/*" %>
-    </div>
-
-    <div class="justify-content-center mt-3">
-      <%= f.label :title, "タイトル", class: "font-weight-bold justify-content-start" %>
-      <%= f.text_area :title, required: true, rows: 2, class: "form-control" %>
-    </div>
-
-    <div class="justify-content-center mt-3">
-      <%= f.label :content, "本文", class: "font-weight-bold justify-content-start" %>
-      <%= f.text_area :content, required: true, rows: 20, class: "form-control" %>
-    </div>
-
-    <div class="text-center mt-3">
-      <%= f.submit '投稿する', class: "btn btn-outline-success" %>
-    </div>
-    <% end %>
+    <%= render "form", post: @post %>
   </div>
 </div>

@@ -1,21 +1,4 @@
 <div class="container">
-  <div class="card-columns">
-    <% @posts.each do |post| %>
-    <%= link_to post_path(post), class: "text-reset" do %>
-      <div class="card" style="height: 300px">
-        <div class="card-body">
-          <h5 class="card-title"><%= post.title %></h5>
-          <%= link_to user_path(post.user_id) do %>
-            <div>
-              <%= image_tag post.user.get_icon, size: "64x64" %>
-            </div>
-            <h6 class="card-subtitle text-muted"><%= post.user.name %></h6>
-          <% end %>
-          <p class=text-black-50><%= post.updated_at.strftime("%Y年%m月%d日") %></p>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-  </div>
+  <%= render "index", posts: @posts, flag: false %>
   <%= paginate @posts %>
 </div>

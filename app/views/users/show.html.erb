@@ -2,33 +2,46 @@
   <div class="row d-flex">
     <!--左側・ユーザー情報-->
     <div class="col-md-4 border border-2">
-      <div>
-        <%= image_tag @user.get_icon %>
-      </div>
-      <h4 class="my-2"><%= @user.name %></h4>
-      <div>
-        <%= @user.description %>
-      </div>
+      <div class="my-2"><%= image_tag @user.get_icon %></div>
+      <h4 class="mb-3"><%= @user.name %></h4>
+      <div class="mb-3"><%=safe_join(@user.description.split("\n"),tag(:br))%></div>
       <!--設定・フォロー・停止ボタン-->
-      <div>
-        <% if @user == current_user %>
-          <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog mr-2"></i>設定する
+      <% if user_signed_in? %>
+        <div class="mb-3">
+          <% if @user == current_user %>
+            <%= link_to edit_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+              <i class="fas fa-user-cog mr-2"></i>設定する
+            <% end %>
+          <% elsif current_user.is_admin %>
+            <%= link_to stop_user_path(@user), method: :patch, class: "btn btn-danger btn-block" do %>
+              <i class="fas fa-ban mr-2"></i>停止する
+            <% end %>
           <% end %>
-        <% elsif @user.is_admin? %>
-          <%= link_to edit_user_path(@user), class: "btn btn-danger btn-block" do %>
-            <i class="fas fa-ban mr-2"></i>停止する
-          <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
     <!--右側・各種一覧-->
-    <div class="col-auto border border-2">
-      <ul class="nav nav-tabs">
-        <li class="nav-item border border-2 border-info d-flex"><%= link_to "投稿一覧", posts_path, class: "nav-link text-reset" %></li>
-        <li class="nav-item border border-2 border-info"><%= link_to "いいね！した投稿", posts_path, class: "nav-link text-reset" %></li>
-        <li class="nav-item border border-2 border-info"><%= link_to "フォロー中・フォロワー", root_path, class: "nav-link text-reset" %></li>
+    <div class="col-md-8 border border-2">
+      <!--タブ-->
+      <ul class="tab-list list-unstyled d-flex">
+        <li class="tab border border-2 tab-active">ユーザーの投稿一覧</li>
+        <li class="tab border border-2">いいね！した投稿</li>
+        <li class="tab border border-2">フォロー中・フォロワー一覧</li>
       </ul>
+      <!--タブの中身-->
+      <div class="tabbox-contents">
+        <div class="tabbox box-show">
+          <%= render 'posts/index', posts: @posts, flag: true %>
+        </div>
+        <div class="tabbox">
+          <%#= render 'posts/list', posts: @popular_posts %>
+        </div>
+        <div class="tabbox">
+          <%#= render 'posts/list', posts: @pick_up_posts %>
+        </div>
+      </div>
+      <!--タブの中身ここまで-->
     </div>
+    <!--右側ここまで-->
   </div>
 </div>

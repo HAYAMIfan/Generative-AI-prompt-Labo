@@ -1,0 +1,28 @@
+<div class="row">
+  <% posts.each do |post| %>
+    <%= link_to post_path(post), class: "text-reset" do %>
+    <!--カード一つ一つ-->
+    <% if flag %>
+    <div class="col-md-6">
+    <% else %>
+    <div class="col-md-4">
+    <% end %>
+      <div class="card my-3" style="height: 300px">
+        <div class="card-body">
+          <h5 class="card-title" style="height: 150px"><%= post.title.truncate(45, omission: " etc...") %></h5>
+          <div class="d-flex">
+            <%= render "posts/posted_user", post: post unless flag %>
+            <div class="ml-auto">
+            <%= link_to root_path, class: "text-muted" do %>
+              <i class="far fa-heart mr-2"></i><%= post.favorite_count %><br>
+            <% end %>
+              <i class="far fa-comments mr-2"></i>
+            </div>
+          </div>
+          <p class=text-black-50><%= "更新日時："+post.updated_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>
