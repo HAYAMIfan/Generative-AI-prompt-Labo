@@ -1,7 +1,9 @@
-<%= link_to user_path(post.user_id) do %>
-<%= image_tag post.user.get_icon, size: "64x64" %>
-<div class="ml-2">
-  <h5 class="mb-2 text-muted text-truncate"><%= post.user.name %></h5>
-  <%= link_to "フォローする", root_path, class: "text-muted" %>
+<div class="d-flex">
+  <%= link_to user_path(post.user_id) do %>
+  <%= image_tag post.user.get_icon, size: "64x64" %>
+  <div class="ml-2">
+    <h5 class="mb-2 text-muted text-truncate"><%= post.user.name %></h5>
+    <%= link_to "フォローする", root_path, class: "text-muted" %>
+  </div>
+  <% end %>
 </div>
-<% end %>

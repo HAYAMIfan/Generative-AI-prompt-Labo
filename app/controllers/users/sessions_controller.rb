@@ -1,7 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
   before_action :user_state, only: [:create]
 
-
+# ゲストログイン
   def guest_sign_in
     user = User.guest
     sign_in user

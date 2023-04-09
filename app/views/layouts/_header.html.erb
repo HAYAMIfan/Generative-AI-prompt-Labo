@@ -7,10 +7,8 @@
         <% if user_signed_in? %>
         <!--userがログインしている時-->
           <% if current_user.is_admin? %>
-          <!--管理者がログインした時-->
             <p class="font-weight-bold text-red">管理者ログイン中！</p>
           <% else %>
-          <!--管理者以外がログインした時-->
             <p class="font-weight-bold text-dark">ようこそ、<%= current_user.name %>さん！</p>
           <% end %>
         <% else %>
@@ -37,10 +35,13 @@
           <% if user_signed_in? %>
           <!--userがログインしている時-->
             <li class="nav-item">
-              <%= link_to "マイページ", user_path(current_user), class: 'btn btn-outline-secondary mb-3' %>
+              <%= link_to "ユーザー一覧", users_path, class: 'btn btn-outline-secondary' if current_user.is_admin? %>
             </li>
             <li class="nav-item">
-              <%= link_to "いいね！した投稿", user_path(current_user), class: 'btn btn-outline-secondary ml-3 mb-3' %>
+              <%= link_to "マイページ", user_path(current_user), class: 'btn btn-outline-secondary ml-3' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "いいね！した投稿", user_path(current_user), class: 'btn btn-outline-secondary ml-3' %>
             </li>
             <li class="nav-item">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-3' %>
@@ -48,10 +49,10 @@
           <% else %>
           <!--ログインしていない時 -->
             <li class="nav-item">
-              <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: 'btn btn-outline-secondary ml-3 mb-3' %>
+              <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: 'btn btn-outline-secondary' %>
             </li>
             <li class="nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-secondary ml-3 mb-3' %>
+              <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-secondary ml-3' %>
             </li>
             <li class="nav-item">
               <%= link_to "ログイン", new_user_session_path, class: 'btn btn-outline-secondary ml-3' %>
@@ -59,7 +60,7 @@
           <% end %>
           </ul>
           <!--検索窓-->
-          <div class="search_form justify-content-end d-flex">
+          <div class="search_form justify-content-end d-flex mt-3">
             <%= form_with url: root_path, method: :get do |f| %>
               <div class="input-group mb-3">
                 <%= f.text_field :word, class: "form-control search-control mr-1", placeholder: "Search..." %>

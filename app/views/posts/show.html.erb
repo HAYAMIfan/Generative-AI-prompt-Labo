@@ -11,7 +11,7 @@
     </div>
     <!--左側ここまで-->
     <!--右側  文章エリア-->
-    <div class="col-6" style="width:40%; height: 900px">
+    <div class="col-6" style="width:40%; height: 990px">
       <h2 class="ml-2"><%=safe_join(@post.title.split("\n"),tag(:br))%></h2>
       <!--投稿詳細の疑似ヘッダー-->
       <div class="d-flex ml-2">
@@ -29,13 +29,13 @@
         <!--投稿者だけに編集・削除ボタンを表示-->
         <div class="ml-auto">
         <% if @post.user == current_user %>
-          <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-success" %><br>
-          <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+          <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
+          <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
         <% end %>
         </div>
-      <!--疑似ヘッダーここまで-->
       </div>
-      <!--入力された改行(\n)をHTMLに反映させた本文を表示-->
+      <!--疑似ヘッダーここまで-->
+      <!--入力された改行(\n)をHTMLに反映させて本文を表示-->
       <div class="overflow-auto p-2" style="background-color:#fff2e5">
         <%=safe_join(@post.content.split("\n"),tag(:br))%>
       </div>

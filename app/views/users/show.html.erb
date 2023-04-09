@@ -13,9 +13,15 @@
               <i class="fas fa-user-cog mr-2"></i>設定する
             <% end %>
           <% elsif current_user.is_admin %>
-            <%= link_to stop_user_path(@user), method: :patch, class: "btn btn-danger btn-block" do %>
-              <i class="fas fa-ban mr-2"></i>停止する
+          <!--↓アカウントの停止-->
+            <% if @user.is_stopped? %>
+              <div class="bg-secondary">停止済み</div>
+            <% else %>
+              <%= link_to stop_user_path(@user), method: :patch, class: "btn btn-danger btn-block" do %>
+                <i class="fas fa-ban mr-2"></i>停止する
+              <% end %>
             <% end %>
+          <!--↑アカウントの停止-->
           <% end %>
         </div>
       <% end %>
@@ -31,7 +37,7 @@
       <!--タブの中身-->
       <div class="tabbox-contents">
         <div class="tabbox box-show">
-          <%= render 'posts/index', posts: @posts, flag: true %>
+          <%= render 'posts/index', posts: @posts, flag: false %>
         </div>
         <div class="tabbox">
           <%#= render 'posts/list', posts: @popular_posts %>
