@@ -2,21 +2,17 @@
   <% posts.each do |post| %>
     <%= link_to post_path(post), class: "text-reset" do %>
     <!--カード一つ一つ-->
-    <% if flag %>
-    <div class="col-md-4">
-    <% else %>
-    <div class="col-md-6">
-    <% end %>
+    <div class="<%= flag ? 'col-md-4' : 'col-md-6' %>"><!--各カードの幅をpost#indexとuser#showで分ける-->
       <div class="card my-3">
-        <div class="card-body">
+        <div class="card-body pb-0">
           <h5 class="card-title" style="height: 100px"><%= post.title.truncate(45, omission: " etc...") %></h5>
           <!--投稿一覧では投稿者の情報を表示する-->
-          <%= render "posts/posted_user", post: post if flag %>
-          <div class="d-flex">
-            <%= link_to root_path, class: "text-muted" do %>
-            <i class="far fa-heart mr-2"></i><%= post.favorite_count %><br>
-          <% end %>
-          <p class= "text-black-50 ml-auto mb-0"><%= "投稿日時："+post.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
+          <%= render "posts/posted_user", post: post %>
+          <div class="d-flex align-items-center">
+            <div class="favorite-btn_<%= post.id %>">
+              <%= render "favorites/favorite-btn", post: post %>
+            </div>
+            <p class= "text-black-50 ml-auto my-2"><%= "投稿日時："+post.created_at.strftime("%Y年%m月%d日 %H:%M") %></p>
           </div>
         </div>
       </div>

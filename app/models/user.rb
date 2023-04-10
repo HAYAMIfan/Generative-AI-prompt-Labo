@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_one_attached :icon
 
   validates :icon, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
@@ -23,4 +24,5 @@ class User < ApplicationRecord
       user.name = "ゲスト"
     end
   end
+  
 end

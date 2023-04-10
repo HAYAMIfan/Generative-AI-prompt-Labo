@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)
+    favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
+    @favorite_posts = Post.where(id: favorite_post_ids)
   end
 
   def edit

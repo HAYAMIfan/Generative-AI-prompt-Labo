@@ -1,7 +1,7 @@
 <%= form_with model:post do |f| %>
   <div class="justify-content-center mt-3">
     <%= f.label :image, "スクリーンショット", class: "font-weight-bold justify-content-start mr-2" %>
-    <%= f.file_field :image, multiple: true, accept: "image/*" %>
+    <%= f.file_field :image, multiple: true, required: true, accept: "image/*" %>
   </div>
   
   <div class="justify-content-center mt-3">

@@ -15,7 +15,7 @@
         <!--未ログイン時-->
           <p class="font-weight-bold text-dark">ようこそ、訪問者さん！</p>
         <% end %>
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs nav-pills" role="tablist">
           <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link text-reset" %></li>
           <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link text-reset" %></li>
           <li class="nav-item"><%= link_to "フォロー中", root_path, class: "nav-link text-reset" %></li>
@@ -39,9 +39,6 @@
             </li>
             <li class="nav-item">
               <%= link_to "マイページ", user_path(current_user), class: 'btn btn-outline-secondary ml-3' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "いいね！した投稿", user_path(current_user), class: 'btn btn-outline-secondary ml-3' %>
             </li>
             <li class="nav-item">
               <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-3' %>
