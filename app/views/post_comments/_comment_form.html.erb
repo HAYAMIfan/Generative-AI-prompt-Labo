@@ -1,0 +1,4 @@
+<%= form_with model: [post, post_comment], local: false do |f| %>
+  <%= f.text_area :comment, rows: '4', placeholder: "コメントをここに(200字以内)", maxlength: "200", class: "mb-2 form-control" %>
+  <%= f.submit "送信する", class: "btn btn-outline-success" %>
+<% end %>

@@ -1,6 +1,14 @@
-<div class="container">
-  <div class="col-auto justify-content-center border border-2" style="background-color:#fff2e5">
-    <h3>新規投稿</h3>
-    <%= render "form", post: @post %>
+<div class="container-fluid">
+  <div class="row">
+    <!--左側　注意書き画像エリア-->
+    <div class="col-6 overflow-auto p-0" style="height: 990px">
+      <div class="ml-auto mr-4" style="width: 700px">
+        <%= image_tag "note-image.png" %>
+      </div>
+    </div>
+    <div class="col-4 border border-2" style="background-color:#fff2e5">
+      <h3>新規投稿</h3>
+      <%= render "form", post: @post %>
+    </div>
   </div>
 </div>

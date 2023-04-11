@@ -3,15 +3,14 @@
     <!--左側  画像エリア-->
     <div class="col-6 overflow-auto p-0" style="height: 990px">
     <!--画像を中心基準で幅700で切り抜く(高さはそのままにするために適当に大きな数値)-->
-    <% @post.image.each do |image| %>
+    <% @post.images.each do |image| %>
       <div class="ml-auto mr-4" style="width: 700px">
         <%= image_tag image.variant( gravity: "center", crop: "700x1500+0+0").processed %>
       </div>
     <% end %>
-    </div>
-    <!--左側ここまで-->
+    </div><!--左側ここまで-->
     <!--右側  文章エリア-->
-    <div class="col-6" style="width:40%; height: 990px">
+    <div class="col-4" style="height: 990px">
       <h2 class="ml-2"><%=safe_join(@post.title.split("\n"),tag(:br))%></h2>
       <!--投稿詳細の疑似ヘッダー-->
       <div class="d-flex ml-2">
@@ -24,19 +23,24 @@
         <div class="ml-4 favorite-btn_<%= @post.id %>">
           <%= render "favorites/favorite-btn", post: @post %>
         </div>
-        <!--投稿者だけに編集・削除ボタンを表示-->
+        <!--投稿者だけに編集ボタン、投稿者と管理者に削除ボタンを表示-->
         <div class="ml-auto">
-        <% if @post.user == current_user %>
+        <% if @post.user == current_user || current_user.is_admin? %>
           <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
           <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
         <% end %>
         </div>
-      </div>
-      <!--疑似ヘッダーここまで-->
+      </div><!--疑似ヘッダーここまで-->
       <div class="overflow-auto p-2" style="background-color:#fff2e5">
         <%= simple_format(@post.content) %>
       </div>
-    </div>
-    <!--右側ここまで-->
+      <!--コメント欄-->
+      <div class="my-4 comment_list">
+        <%= render 'post_comments/comment_list', post: @post %>
+      </div>
+      <div class="comment_form">
+        <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>
+      </div>
+    </div><!--右側ここまで-->
   </div>
 </div>

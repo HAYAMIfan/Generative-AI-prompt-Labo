@@ -1,30 +1,26 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index]
+  before_action :set_post, only: %i[show edit update destroy]
 
   def show
-    @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
-    @post = Post.find(params[:id])
     user_id = @post.user_id
-    unless user_id == current_user.id
+    # 管理者以外のユーザーが他人のeditページに移動できないようにする
+    unless user_id == current_user.id || current_user.is_admin?
       redirect_to posts_path
     end
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
-      redirect_to post_path(@post)
-    else
-      render :edit
-    end
+    @post.update(post_params) ? (redirect_to post_path(@post)) : (render :edit)
   end
 
   def index
-    @posts = Post.order("created_at DESC").page(params[:page])
+    @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
   end
 
   def new
@@ -36,22 +32,21 @@ class PostsController < ApplicationController
   def create
     @post= Post.new(post_params)
     @post.user_id = current_user.id
-    if @post.save!
-      redirect_to post_path(@post), notice: "投稿が完了しました。"
-    else
-      render :new
-    end
+    @post.save ? (redirect_to post_path(@post), notice: "投稿が完了しました。") : (render :new)
   end
 
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_path
   end
 
   private
 
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
   def post_params
-    params.require(:post).permit(:user_id, :title, :content, :favorite_count, image: [] )
+    params.require(:post).permit(:user_id, :title, :content, :favorite_count, images: [] )
   end
 end
