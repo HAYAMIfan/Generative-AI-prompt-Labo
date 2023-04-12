@@ -5,10 +5,11 @@
     <div class="<%= flag ? 'col-md-4' : 'col-md-6' %>"><!--各カードの幅をpost#indexとuser#showで分ける-->
       <div class="card my-3">
         <div class="card-body pb-0">
-          <h5 class="card-title" style="height: 100px"><%= post.title.truncate(45, omission: " etc...") %></h5>
-          <!--投稿一覧では投稿者の情報を表示する-->
+          <h5 class="card-title" style="height: 100px"><%= post.title.truncate(45, omission: "...") %></h5>
+          <!--投稿者情報を表示する-->
           <%= render "posts/posted_user", post: post %>
           <div class="d-flex align-items-center">
+            <!--いいね！ボタン-->
             <div class="favorite-btn_<%= post.id %>">
               <%= render "favorites/favorite-btn", post: post %>
             </div>

@@ -1,0 +1,16 @@
+<div class="row">
+  <% users.each do |user| %>
+    <div class="<%= show ? 'col-md-4' : 'col-md-1' %>">
+      <%= link_to user_path(user), class: "text-reset text-decoration-none" do %>
+      <div class="card my-3">
+        <div class="card-body pb-0">
+          <%= image_tag user.get_icon, size: "96x96" %>
+          <div class="ml-2">
+            <h5 class="mb-2"><%= user.name %></h5>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
