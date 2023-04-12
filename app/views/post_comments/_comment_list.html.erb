@@ -1,20 +1,25 @@
-<p>コメント件数：<%= @post.post_comments.count %></p>
-<% post.post_comments.each do |post_comment| %>
-  <div class="border row pl-2">
-    <div class="my-2 col-md-3 row d-flex"><!--投稿者情報＆投稿時間-->
-    <%= link_to user_path(post_comment.user_id), class: "text-muted text-decoration-none" do %>
-      <div>
-      <%= image_tag post_comment.user.get_icon, size: "64x64" %>
-      <!--投稿者と管理人にのみ削除ボタンを表示-->
-      <% if post_comment.user == current_user || current_user.is_admin? %>
-        <%= link_to '削除', post_post_comment_path(post_comment.post, post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "ml-2 btn btn-sm btn-outline-danger", remote:true %>
-      <% end %>
+<p>コメント件数：<%= post_comments.count %></p>
+<% post_comments.each do |post_comment| %>
+  <div class="px-3">
+    <div class="border row pl-2">
+      <div class="my-2 col-md-3"><!--投稿者情報＆投稿時間-->
+        <div class="d-flex align-items-end flex-wrap">
+          <%= link_to user_path(post_comment.user_id), class: "text-muted text-decoration-none" do %>
+            <%= image_tag post_comment.user.get_icon, size: "64x64" %>
+          <% end %>
+          <!--投稿者と管理人にのみ削除ボタンを表示-->
+          <% if post_comment.user == current_user || current_user.is_admin? %>
+            <%= link_to '削除', post_post_comment_path(post_comment.post, post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "ml-2 btn btn-sm btn-outline-danger", remote:true %>
+          <% end %>
+        </div>
+        <%= link_to user_path(post_comment.user_id), class: "text-muted text-decoration-none" do %>
+          <%= post_comment.user.name %><br>
+        <% end %>
+        <%= post_comment.created_at.strftime("%Y/%m/%d/ %H:%M") %>
       </div>
-      <%= post_comment.user.name %><br>
-    <% end %>
-    <%= post_comment.created_at.strftime("%Y/%m/%d/ %H:%M") %>
+      <!--コメント本文-->
+      <div class="text-break col-md-9"><%= simple_format(post_comment.comment) %></div>
     </div>
-    <!--コメント本文-->
-    <div class="text-break col-md-9"><%= simple_format(post_comment.comment) %></div>
   </div>
+
 <% end %>

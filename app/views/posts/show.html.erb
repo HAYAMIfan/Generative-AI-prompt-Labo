@@ -1,16 +1,8 @@
 <div class="container-fluid">
   <div class="row">
-    <!--左側  画像エリア-->
-    <div class="col-6 overflow-auto p-0" style="height: 990px">
-    <!--画像を中心基準で幅700で切り抜く(高さはそのままにするために適当に大きな数値)-->
-    <% @post.images.each do |image| %>
-      <div class="ml-auto mr-4" style="width: 700px">
-        <%= image_tag image.variant( gravity: "center", crop: "700x1500+0+0").processed %>
-      </div>
-    <% end %>
-    </div><!--左側ここまで-->
+    <%= render "image", post: @post %><!--左側  画像エリア-->
     <!--右側  文章エリア-->
-    <div class="col-4" style="height: 990px">
+    <div class="col-xxl-4 col-lg-5 col-md-6" style="height: 990px">
       <h2 class="ml-2"><%=safe_join(@post.title.split("\n"),tag(:br))%></h2>
       <!--投稿詳細の疑似ヘッダー-->
       <div class="d-flex ml-2">
@@ -36,7 +28,7 @@
       </div>
       <!--コメント欄-->
       <div class="my-4 comment_list">
-        <%= render 'post_comments/comment_list', post: @post %>
+        <%= render 'post_comments/comment_list', post: @post, post_comments: @post_comments %>
       </div>
       <div class="comment_form">
         <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>

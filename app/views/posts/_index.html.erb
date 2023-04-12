@@ -4,7 +4,7 @@
     <!--カード一つ一つ-->
     <div class="<%= flag ? 'col-md-4' : 'col-md-6' %>"><!--各カードの幅をpost#indexとuser#showで分ける-->
       <div class="card my-3">
-        <div class="card-body pb-0">
+        <div class="card-body px-2 pb-0">
           <h5 class="card-title" style="height: 100px"><%= post.title.truncate(45, omission: "...") %></h5>
           <!--投稿者情報を表示する-->
           <%= render "posts/posted_user", post: post %>

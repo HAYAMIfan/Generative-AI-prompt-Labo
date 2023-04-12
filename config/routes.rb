@@ -7,15 +7,16 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
-  resources :users, only: [:index, :show, :edit, :update] do
+  resources :users, only: %i[index show edit update] do
     member do
       patch 'stop'
+      patch 'restore'
     end
   end
 
   resources :posts do
-    resource :favorites , only: [:create , :destroy]
-    resources :post_comments, only: [:create, :destroy]
+    resource :favorites , only: %i[create destroy]
+    resources :post_comments, only: %i[create destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

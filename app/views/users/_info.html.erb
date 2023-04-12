@@ -1,27 +1,28 @@
-<div class="d-flex">
-  <div class="my-2">
-    <%= image_tag user.get_icon %>
-    <h4 class="mb-3"><%= user.name %></h4>
+<div class="container border border-2">
+  <div class="d-flex">
+    <%= image_tag user.get_icon, class: "my-2" %>
+    <!--設定・フォロー・停止ボタン-->
+    <% if user_signed_in? %>
+      <div class="m-auto">
+        <% if user == current_user %>
+          <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog mr-2"></i>設定する
+          <% end %>
+        <% elsif current_user.is_admin %>
+        <!--↓管理者機能-->
+          <% if user.is_stopped? %>
+            <%= link_to restore_user_path(user), method: :patch, class: "btn btn-success" do %>
+              <i class="fas fa-unlock mr-2"></i>復旧する
+            <% end %>
+          <% else %>
+            <%= link_to stop_user_path(user), method: :patch, class: "btn btn-warning" do %>
+              <i class="fas fa-ban mr-2"></i>停止する
+            <% end %>
+          <% end %><!--管理者機能ここまで-->
+        <% end %><!--ユーザー種別の判別ここまで-->
+      </div>
+    <% end %><!--ログイン状態の判別ここまで-->
   </div>
-  <!--設定・フォロー・停止ボタン-->
-  <% if user_signed_in? %>
-  <div class="m-auto">
-    <% if user == current_user %>
-      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
-        <i class="fas fa-user-cog mr-2"></i>設定する
-      <% end %>
-    <% elsif current_user.is_admin %>
-    <!--↓アカウントの停止-->
-      <% if user.is_stopped? %>
-        <div class="bg-secondary">停止済み</div>
-      <% else %>
-        <%= link_to stop_user_path(user), method: :patch, class: "btn btn-warning" do %>
-          <i class="fas fa-ban mr-2"></i>停止する
-        <% end %>
-      <% end %>
-    <!--↑アカウントの停止-->
-    <% end %>
-  </div>
-<% end %>
+  <h4 class="mb-3"><%= user.name %></h4>
+  <div class="my-auto text-muted"><%= simple_format(user.description.presence) || "自己紹介コメントを書いてみましょう！" %></div>
 </div>
-<div class="mb-3 text-muted"><%= simple_format(user.description.presence) || "自己紹介コメントを書いてみましょう！" %></div>

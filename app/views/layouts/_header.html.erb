@@ -2,24 +2,21 @@
   <nav class="navbar navbar-expand-lg p-0">
     <!--headerの左側-->
     <div class="justify-content-start d-flex mr-auto">
-      <a class="navbar-brand py-0" href="/"><%= image_tag("logo.png", class: "h-100") %></a>
+      <a class="navbar-brand py-0" href="/"><%= image_tag("logo.png", style: "max-width: 425px;") %></a>
       <div class="mt-5">
-        <% if user_signed_in? %>
-        <!--userがログインしている時-->
-          <% if current_user.is_admin? %>
-            <p class="font-weight-bold text-red">管理者ログイン中！</p>
-          <% else %>
-            <p class="font-weight-bold text-dark">ようこそ、<%= current_user.name %>さん！</p>
-          <% end %>
+        <% if user_signed_in? %><!--ようこそメッセージ-->
+        <p class="font-weight-bold"><%= current_user.is_admin? ? "管理者ログイン中！" : "ようこそ、#{current_user.name}さん！" %></p>
         <% else %>
-        <!--未ログイン時-->
-          <p class="font-weight-bold text-dark">ようこそ、訪問者さん！</p>
-        <% end %>
+          <p class="font-weight-bold">ようこそ、訪問者さん！</p>
+        <% end %><!--ようこそメッセージここまで-->
         <ul class="nav nav-tabs nav-pills" role="tablist">
           <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link text-reset" %></li>
           <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link text-reset" %></li>
           <li class="nav-item"><%= link_to "フォロー中", root_path, class: "nav-link text-reset" %></li>
           <li class="nav-item"><%= link_to "投稿する", new_post_path, class: "nav-link text-reset" %></li>
+          <% if user_signed_in? && current_user.is_admin? %>
+            <li class="nav-item"><%= link_to "ユーザー一覧", users_path, class: "nav-link text-reset" %></li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -35,24 +32,21 @@
           <% if user_signed_in? %>
           <!--userがログインしている時-->
             <li class="nav-item">
-              <%= link_to "ユーザー一覧", users_path, class: 'btn btn-outline-secondary' if current_user.is_admin? %>
+              <%= link_to "マイページ", user_path(current_user), class: "btn btn-outline-secondary ml-3" %>
             </li>
             <li class="nav-item">
-              <%= link_to "マイページ", user_path(current_user), class: 'btn btn-outline-secondary ml-3' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-3' %>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary ml-3" %>
             </li>
           <% else %>
           <!--ログインしていない時 -->
             <li class="nav-item">
-              <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: 'btn btn-outline-secondary' %>
+              <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-outline-secondary" %>
             </li>
             <li class="nav-item">
-              <%= link_to "新規登録", new_user_registration_path, class: 'btn btn-outline-secondary ml-3' %>
+              <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-secondary ml-3" %>
             </li>
             <li class="nav-item">
-              <%= link_to "ログイン", new_user_session_path, class: 'btn btn-outline-secondary ml-3' %>
+              <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-secondary ml-3" %>
             </li>
           <% end %>
           </ul>
@@ -66,10 +60,9 @@
                 <% end %>
               </div>
             <% end %>
-          </div>
-
+          </div><!--検索窓ここまで-->
         </div>
       </div>
-    </div>
+    </div><!--headerの右側ここまで-->
   </nav>
 </header>

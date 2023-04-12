@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_one_attached :icon
 
-  validates :icon, blob: { content_type: ['image/png', 'image/jpg', 'image/jpeg'] }
+  validates :icon, blob: { content_type: %w[image/png image/jpg image/jpeg] }
 
   # アイコン画像を表示する
   def get_icon

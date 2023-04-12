@@ -2,18 +2,18 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show index edit]
   before_action :authenticate_admin!, only: [:index]
-  before_action :set_user, only: %i[show edit update stop]
+  before_action :set_user, only: %i[show edit update stop restore]
 
   def show
     @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)
     favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
     @favorite_posts = Post.where(id: favorite_post_ids)
-    # BANされたユーザーの詳細ページは管理人のみアクセス可能
+    # 停止されたユーザーの詳細ページは管理人のみアクセス可能
     redirect_to root_path if !current_user.is_admin? && @user.is_stopped?
   end
 
   def edit
-    # ユーザー編集画面はBANされていない本人のみがアクセス可能
+    # ユーザー編集画面は停止されていない本人のみがアクセス可能
     redirect_to root_path if @user != current_user || @user.is_stopped?
   end
 
@@ -21,8 +21,12 @@ class UsersController < ApplicationController
     @user.update(user_params) ? (redirect_to user_path(@user)) : (render :edit)
   end
 
-  def stop
+  def stop#アカウント停止
     redirect_to request.referer if @user.update(is_stopped: true)
+  end
+
+  def restore#アカウント復旧
+    redirect_to request.referer if @user.update(is_stopped: false)
   end
 
   def index

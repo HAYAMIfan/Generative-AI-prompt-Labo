@@ -1,2 +1,2 @@
 $(".comment_form").html("<%= j(render partial: 'post_comments/comment_form', locals: {post: @post, post_comment: @post_comment}) %>");
-$(".comment_list").html("<%= j(render partial: 'post_comments/comment_list', locals: {post: @post}) %>");
+$(".comment_list").html("<%= j(render partial: 'post_comments/comment_list', locals: {post: @post, post_comments: @post_comments}) %>");
