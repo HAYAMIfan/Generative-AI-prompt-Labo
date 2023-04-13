@@ -16,12 +16,14 @@
           <%= render "favorites/favorite-btn", post: @post %>
         </div>
         <!--投稿者だけに編集ボタン、投稿者と管理者に削除ボタンを表示-->
-        <div class="ml-auto">
-        <% if @post.user == current_user || current_user.is_admin? %>
-          <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
-          <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
+        <% if current_user %>
+          <% if @post.user == current_user || current_user.is_admin? %>
+          <div class="ml-auto">
+            <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
+            <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
+          </div>
+          <% end %>
         <% end %>
-        </div>
       </div><!--疑似ヘッダーここまで-->
       <div class="overflow-auto p-2" style="background-color:#fff2e5">
         <%= simple_format(@post.content) %>

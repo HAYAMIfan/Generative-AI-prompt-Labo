@@ -2,7 +2,7 @@
   <div class="d-flex">
     <%= image_tag user.get_icon, class: "my-2" %>
     <!--設定・フォロー・停止ボタン-->
-    <% if user_signed_in? %>
+    <% if current_user %>
       <div class="m-auto">
         <% if user == current_user %>
           <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>

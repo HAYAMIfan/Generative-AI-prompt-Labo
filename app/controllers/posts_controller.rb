@@ -6,12 +6,11 @@ class PostsController < ApplicationController
   def show
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.includes(:user).where(users: { is_stopped: false })
-    #byebug
   end
 
   def edit
     user_id = @post.user_id
-    # 管理者以外のユーザーが他人のeditページに移動できないようにする
+    # 管理者以外のユーザーが他人の投稿のeditページに移動できないようにする
     unless user_id == current_user.id || current_user.is_admin?
       redirect_to posts_path
     end

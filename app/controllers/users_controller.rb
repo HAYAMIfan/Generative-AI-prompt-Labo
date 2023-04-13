@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
     @favorite_posts = Post.where(id: favorite_post_ids)
     # 停止されたユーザーの詳細ページは管理人のみアクセス可能
-    redirect_to root_path if !current_user.is_admin? && @user.is_stopped?
+    if @user.is_stopped? && !(current_user && current_user.is_admin?)
+      redirect_to posts_path
+    end
   end
 
   def edit
