@@ -21,8 +21,15 @@ class PostsController < ApplicationController
   end
 
   def index
+    @q = Post.ransack(params[:q])
     @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
   end
+  
+  def search
+    @q = Post.ransack(params[:q])
+    @results = @q.result.order("created_at DESC").page(params[:page]).per(10)
+  end
+
 
   def new
     @post= Post.new

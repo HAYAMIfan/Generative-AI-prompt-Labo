@@ -10,12 +10,12 @@
           <p class="font-weight-bold">ようこそ、訪問者さん！</p>
         <% end %><!--ようこそメッセージここまで-->
         <ul class="nav nav-tabs nav-pills" role="tablist">
-          <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link text-reset" %></li>
-          <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link text-reset" %></li>
-          <li class="nav-item"><%= link_to "フォロー中", root_path, class: "nav-link text-reset" %></li>
-          <li class="nav-item"><%= link_to "投稿する", new_post_path, class: "nav-link text-reset" %></li>
+          <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "フォロー中", root_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "投稿する", new_post_path, class: "nav-link" %></li>
           <% if user_signed_in? && current_user.is_admin? %>
-            <li class="nav-item"><%= link_to "ユーザー一覧", users_path, class: "nav-link text-reset" %></li>
+            <li class="nav-item"><%= link_to "ユーザー一覧", users_path, class: "nav-link" %></li>
           <% end %>
         </ul>
       </div>
@@ -50,17 +50,6 @@
             </li>
           <% end %>
           </ul>
-          <!--検索窓-->
-          <div class="search_form justify-content-end d-flex mt-3">
-            <%= form_with url: root_path, method: :get do |f| %>
-              <div class="input-group mb-3">
-                <%= f.text_field :word, class: "form-control search-control mr-1", placeholder: "Search..." %>
-                <%= button_tag type: "submit", class: "btn btn-light " do %>
-                  <i class="fas fa-search"></i>
-                <% end %>
-              </div>
-            <% end %>
-          </div><!--検索窓ここまで-->
         </div>
       </div>
     </div><!--headerの右側ここまで-->

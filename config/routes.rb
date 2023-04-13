@@ -12,9 +12,15 @@ Rails.application.routes.draw do
       patch 'stop'
       patch 'restore'
     end
+    collection do
+      get 'search'
+    end
   end
 
   resources :posts do
+    collection do
+      get 'search'
+    end
     resource :favorites , only: %i[create destroy]
     resources :post_comments, only: %i[create destroy]
   end

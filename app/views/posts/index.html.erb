@@ -1,4 +1,5 @@
 <div class="container">
+  <%= render "search_form", q: @q %>
   <%= render "index", posts: @posts, flag: true %>
   <%= paginate @posts %>
 </div>

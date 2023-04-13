@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: %i[show index edit]
   before_action :authenticate_admin!, only: [:index]
   before_action :set_user, only: %i[show edit update stop restore]
+  before_action :set_q, only: %i[index search]
 
   def show
     @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)
@@ -35,10 +36,18 @@ class UsersController < ApplicationController
     @users = User.page(params[:page])
   end
 
+  def search
+    @results = @q.result.page(params[:page]).per(10)
+  end
+
   private
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_q
+    @q = User.ransack(params[:q])
   end
 
   def user_params

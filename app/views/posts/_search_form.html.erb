@@ -1,0 +1,11 @@
+<div>
+  <%= search_form_for q, url: search_posts_path do |f| %>
+    <div class="input-group">
+      <%= f.label :title_or_content_cont, 'タイトルまたは本文中' %>
+      <%= f.search_field :title_or_content_cont, class: "form-control search-control mr-1", placeholder: "Search..." %>
+      <%= button_tag type: "submit", class: "btn btn-light " do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </div>
+  <% end %>
+</div>

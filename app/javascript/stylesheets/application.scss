@@ -1,37 +1,33 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+// タブ関連
+.nav-link {
+  background: #fff4e4;
+  text-decoration: none;
+  color: black;
+}
 .nav-link:hover{
-  background-color: silver;
-}
-
-.tab {
-  width: 100%;
-  padding: 10px;
-  cursor: pointer;
-  border-left: solid 1px #CCC;
-  border-bottom: solid 1px #CCC;
-}
-.tab:first-child {
-  border-left: none;
-}
-// タブがactiveのときのデザイン
-.tab-active {
-  color: #FFF;
-  background: #19b5d1;
-  transition: all 0.2s ease-in-out;
-}
-// タブの中身、最初は非表示
-.tabbox {
-  display: none;
-  padding: 15px;
-}
-// box-showクラスのものだけ表示
-.box-show {
-  display: block;
-}
-// hover時のアクション
-.tab:hover{
   box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
+}
+.nav-link:active {
+  background: #d1ffd1;
+}
+// リンク関連
+.link{
+  text-decoration: none;
+  color: black;
+}
+.link:hover{
+  color: black;
+}
+.link:visited{
+  text-decoration: none;
+  color: #858585;
+}
+// 検索バーの幅
+.search-area{
+  width: 500px;
+  margin: 2rem auto;
 }

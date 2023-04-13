@@ -6,7 +6,7 @@
       <h2 class="ml-2"><%=safe_join(@post.title.split("\n"),tag(:br))%></h2>
       <!--投稿詳細の疑似ヘッダー-->
       <div class="d-flex ml-2">
-        <%= render "posted_user", post: @post %>
+        <%= render "author", post: @post %>
         <div class="ml-2 ">
           <%= "投稿日時："+@post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
           <%= "更新日時："+@post.updated_at.strftime("%Y年%m月%d日 %H:%M") %>
