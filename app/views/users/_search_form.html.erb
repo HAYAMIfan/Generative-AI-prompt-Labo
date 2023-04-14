@@ -1,7 +1,7 @@
 <div class="search-area">
   <%= search_form_for q, url: search_users_path do |f| %>
     <div class="input-group">
-      <%= f.label :name_cont, 'ユーザー名で部分一致検索', class: "my-0 mr-2 d-flex align-items-center" %>
+      <%= f.label :name_cont, 'ユーザー名で部分一致検索', class: "label" %>
       <%= f.search_field :name_cont, class: "form-control search-control", placeholder: "Search..." %>
       <%= button_tag type: "submit", class: "btn btn-light " do %>
         <i class="fas fa-search"></i>

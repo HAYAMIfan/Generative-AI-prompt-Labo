@@ -6,13 +6,11 @@
   background: #fff4e4;
   text-decoration: none;
   color: black;
+  border: 2px solid #cfcfcf;
 }
 .nav-link:hover{
   box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
-}
-.nav-link:active {
-  background: #d1ffd1;
 }
 // リンク関連
 .link{
@@ -29,5 +27,34 @@
 // 検索バーの幅
 .search-area{
   width: 500px;
-  margin: 2rem auto;
+  margin: 2em auto;
+}
+
+.label{
+  font-weight: bold;
+  margin: auto 1em auto 0;
+}
+
+.user-link{
+  text-decoration: none;
+  color: black;
+}
+.user-link:hover{
+  color: black;
+  box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
+}
+// 最大20文字のユーザー名を2行に収めて、溢れる場合は省略する
+.username{
+  width: 10em;
+  height: 3em;
+  margin: auto 1.5em auto 0.5em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.date{
+  color: #979797;
+  margin: auto 0;
 }

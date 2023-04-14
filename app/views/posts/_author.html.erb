@@ -1,6 +1,6 @@
 <div>
-  <%= link_to user_path(post.user_id), class: "d-flex" do %>
+  <%= link_to user_path(post.user_id), class: "d-flex user-link" do %>
     <%= image_tag post.user.get_icon, size: "64x64" %>
-    <div class="text-muted align-items-center d-flex ml-2" style="width: 10rem"><%= post.user.name %></div>
+    <div class="username"><%= post.user.name %></div>
   <% end %>
 </div>

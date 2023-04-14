@@ -1,16 +1,16 @@
 <%= form_with model:post do |f| %>
-  <div class="justify-content-center mt-3">
-    <%= f.label :images, "スクリーンショット", class: "font-weight-bold justify-content-start mr-2" %>
+  <div class="mx-auto mt-3">
+    <%= f.label :images, "スクリーンショット", class: "label" %>
     <%= f.file_field :images, multiple: true, accept: 'image/jpg,image/jpeg,image/png' %>
   </div>
 
-  <div class="justify-content-center mt-3">
-    <%= f.label :title, "タイトル", class: "font-weight-bold justify-content-start" %>
+  <div class="mx-auto mt-3">
+    <%= f.label :title, "タイトル", class: "label" %>
     <%= f.text_area :title, required: true, rows: 2, class: "form-control" %>
   </div>
 
-  <div class="justify-content-center mt-3">
-    <%= f.label :content, "本文", class: "font-weight-bold justify-content-start" %>
+  <div class="mx-auto mt-3">
+    <%= f.label :content, "本文", class: "label" %>
     <%= f.text_area :content, required: true, rows: 20, class: "form-control" %>
   </div>
 

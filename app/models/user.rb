@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # アイコン画像を表示する
   def get_icon
     if icon.attached?
-      icon.variant( gravity: "center", crop: "320x320+0+0", resize: "128x128").processed
+      icon.variant( gravity: "center", crop: "320x320+0+0", resize: "128x128",border: '2').processed
     else
       "default_icon.png"
     end
