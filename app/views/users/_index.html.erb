@@ -6,7 +6,7 @@
         <div class="card-body text-center pb-0">
           <%= image_tag user.get_icon, size: "96x96" %><br>
           <%= user.id if current_user.is_admin? %>
-          <h6 class="username" style="width: 10rem; height: 2.5rem"><%= user.name %></h6>
+          <h6 class="username"><%= user.name %></h6>
         </div>
       <% end %>
       </div>

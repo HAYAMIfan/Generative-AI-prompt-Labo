@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def show
+    @post_tags = @post.tags
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.includes(:user).where(users: { is_stopped: false })
   end
@@ -23,6 +24,7 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
+    @tag_list = Tag.includes(:post_tags).all
   end
   
   def search
@@ -32,15 +34,15 @@ class PostsController < ApplicationController
 
 
   def new
-    @post= Post.new
+    @post = current_user.posts.new
     # 本文のテンプレート
     @post.content = "回答の満足度(10点満点で)：\n\nどんな回答が欲しかったか：\n\n回答の良かったor悪かった所：\n\n呪文について意識した点："
   end
 
   def create
-    @post= Post.new(post_params)
-    @post.user_id = current_user.id
-    @post.save ? (redirect_to post_path(@post), notice: "投稿が完了しました。") : (render :new)
+    @post = current_user.posts.new(post_params)
+    tag_list = params[:post][:name].split(nil)
+    @post.save && @post.save_tag(tag_list) ? (redirect_to post_path(@post), notice: "投稿が完了しました。") : (render :new)
   end
 
   def destroy
