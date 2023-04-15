@@ -1,9 +1,8 @@
-<div class="row">
+<div class="<%= line ? 'card-line' : 'card-box' %>">
   <% posts.each do |post| %>
     <%= link_to post_path(post) do %>
     <!--カード一つ一つ-->
-    <div class="<%= flag ? 'col-md-4' : 'col-md-6' %>"><!--各カードの幅をpost#indexとuser#showで分ける-->
-      <div class="card my-3">
+      <div class="card m-3">
         <div class="card-body px-2 pb-0">
           <h5 class="card-title link" style="height: 100px"><%= post.title.truncate(45, omission: "...") %></h5>
           <!--投稿者情報を表示する-->
@@ -17,7 +16,13 @@
           </div>
         </div>
       </div>
-    </div>
     <% end %>
   <% end %>
+  <!--レイアウト調整のための数合わせ生成-->
+    <% if posts.length % 3 === 1 %>
+      <div class="card m-3" style="visibility:hidden"></div>
+      <div class="card m-3" style="visibility:hidden"></div>
+    <% elsif posts.length % 3 === 2 %>
+      <div class="card m-3" style="visibility:hidden"></div>
+    <% end %>
 </div>

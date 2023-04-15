@@ -2,10 +2,10 @@
   <div class="row">
     <%= render "image", post: @post %><!--左側  画像エリア-->
     <!--右側  文章エリア-->
-    <div class="col-xxl-4 col-lg-5 col-md-6" style="height: 990px">
-      <h2 class="ml-2"><%=safe_join(@post.title.split("\n"),tag(:br))%></h2>
+    <div class="col-xxl-4 col-lg-5 col-md-6" style="height: 900px">
+      <h3><%=simple_format(@post.title)%></h3>
       <!--投稿詳細の疑似ヘッダー-->
-      <div class="d-flex ml-2">
+      <div class="d-flex">
         <%= render "author", post: @post %>
         <div class="ml-2 date">
           <%= "投稿日時："+@post.created_at.strftime("%Y年%m月%d日 %H:%M") %><br>
@@ -25,8 +25,18 @@
           <% end %>
         <% end %>
       </div><!--疑似ヘッダーここまで-->
+      <!--本文-->
       <div class="overflow-auto p-2" style="background-color:#fff2e5">
         <%= simple_format(@post.content) %>
+      </div>
+      <!--タグ一覧-->
+      <div>
+        <% @post_tags.each do |tag| %>
+          <% if tag.posts.count > 0 %>
+            <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
+            <%= "(#{tag.posts.count})" %>
+          <% end %>
+        <% end %>
       </div>
       <!--コメント欄-->
       <div class="my-4 comment_list">

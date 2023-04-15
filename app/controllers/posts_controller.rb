@@ -10,6 +10,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @tag_list=@post.tags.pluck(:tag_name).join(nil)
     user_id = @post.user_id
     # 管理者以外のユーザーが他人の投稿のeditページに移動できないようにする
     unless user_id == current_user.id || current_user.is_admin?
@@ -18,20 +19,38 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.update(post_params) ? (redirect_to post_path(@post)) : (render :edit)
+    if params[:post][:tag_name].present?
+      tag_list = params[:post][:tag_name].split(nil)
+      @post.save_post_tag(tag_list)
+    end
+
+    if @post.update(post_params)
+      @post.save_post_tag(tag_list)
+      redirect_to post_path(@post), notice: '更新しました'
+    else
+      flash.now[:error] = '更新に失敗しました'
+      render :edit
+    end
   end
 
   def index
     @q = Post.ransack(params[:q])
     @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
     @tag_list = Tag.includes(:post_tags).all
-  end
-  
-  def search
-    @q = Post.ransack(params[:q])
-    @results = @q.result.order("created_at DESC").page(params[:page]).per(10)
+    @all_ranks = Post.create_all_ranks
   end
 
+  def search
+    @q = Post.ransack(params[:q])
+    @results = @q.result(distinct: true).order("created_at DESC").page(params[:page]).per(6)
+    @tag_list = Tag.includes(:post_tags).all
+
+    if params[:tag_id].present?
+      @tag = Tag.find(params[:tag_id])
+      @results = @tag.posts.order(created_at: :desc).all.page(params[:page]).per(6)
+    end
+
+  end
 
   def new
     @post = current_user.posts.new
@@ -41,8 +60,17 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    tag_list = params[:post][:name].split(nil)
-    @post.save && @post.save_tag(tag_list) ? (redirect_to post_path(@post), notice: "投稿が完了しました。") : (render :new)
+
+    if @post.save
+      if params[:post][:tag_name].present?
+        tag_list = params[:post][:tag_name].split(nil)
+        @post.save_post_tag(tag_list)
+      end
+      redirect_to post_path(@post), notice: "投稿が完了しました。"
+    else
+      # flash.now[:error] = '作成に失敗しました'
+      render :new
+    end
   end
 
   def destroy

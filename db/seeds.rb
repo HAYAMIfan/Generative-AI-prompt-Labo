@@ -15,16 +15,16 @@ User.create!(
       is_admin: true
     },
     {
-      email: 'test1@test.com',
-      name: 'テスト太郎',
-      password: "1test1",
-      password_confirmation: "1test1"
+      email: 'test@test.com',
+      name: '山田・テスト・太郎',
+      password: "yamatesutaro",
+      password_confirmation: "yamatesutaro"
     },
     {
-      email: 'test2@test.com',
-      name: 'テスト次郎',
-      password: "2test2",
-      password_confirmation: "2test2"
+      email: 'long@test.com',
+      name: '長文テストアカウント・名前は20文字まで',
+      password: "longtxt",
+      password_confirmation: "longtxt"
     },
     {
       email: 'arashi@test.com',

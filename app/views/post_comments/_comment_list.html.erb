@@ -1,10 +1,11 @@
 <p>コメント件数：<%= post_comments.count %></p>
 <% post_comments.each do |post_comment| %>
-  <div class="px-3">
+<!--投稿者によるコメントに色を付ける-->
+  <div class="px-3" style="<%= 'background:#fffbf0' if post_comment.user_id == post_comment.post.user_id %>">
     <div class="border row pl-2">
       <div class="my-2 col-md-3"><!--投稿者情報＆投稿時間-->
         <div class="d-flex align-items-end flex-wrap">
-          <%= link_to user_path(post_comment.user_id), class: "text-muted text-decoration-none" do %>
+          <%= link_to user_path(post_comment.user_id) do %>
             <%= image_tag post_comment.user.get_icon, size: "64x64" %>
           <% end %>
           <!--投稿者と管理人にのみ削除ボタンを表示-->
@@ -12,7 +13,7 @@
             <%= link_to '削除', post_post_comment_path(post_comment.post, post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "ml-2 btn btn-sm btn-outline-danger", remote:true %>
           <% end %>
         </div>
-        <%= link_to user_path(post_comment.user_id), class: "text-muted text-decoration-none" do %>
+        <%= link_to user_path(post_comment.user_id), class: "link" do %>
           <%= post_comment.user.name %><br>
         <% end %>
         <%= post_comment.created_at.strftime("%Y/%m/%d/ %H:%M") %>

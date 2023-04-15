@@ -16,13 +16,15 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
-
   resources :posts do
     collection do
       get 'search'
     end
     resource :favorites , only: %i[create destroy]
     resources :post_comments, only: %i[create destroy]
+  end
+  resources :tags do
+    get 'posts', to: 'posts#search'
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

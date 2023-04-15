@@ -1,2 +1,16 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div class="container-fluid">
+  <!--ランキング-->
+  <div class="my-3">
+    <h5>今週の人気投稿</h5>
+    <%= render "posts/index", posts: @all_ranks, line: true %>
+  </div>
+  <!--フォロー中-->
+  <div class="my-3">
+    <h5>フォロー中</h5>
+  </div>
+  <!--新着投稿-->
+  <div class="my-3">
+    <h5>新着投稿</h5>
+    <%= render "posts/index", posts: @posts, line: true %>
+  </div>
+</div>

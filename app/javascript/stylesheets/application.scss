@@ -24,10 +24,10 @@
   text-decoration: none;
   color: #858585;
 }
-// 検索バーの幅
+// 検索エリアの幅
 .search-area{
-  width: 500px;
-  margin: 2em auto;
+  width: 550px;
+  margin-left: auto;
 }
 
 .label{
@@ -57,4 +57,21 @@
 .date{
   color: #979797;
   margin: auto 0;
+}
+.card{
+  width: 20rem;
+}
+// 様々なindex表示の外枠
+.card-box{
+  justify-content: center;
+  width: auto;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+// トップページ用一行表示
+.card-line{
+  height: 292px;
+  margin-top: 1rem;
+  display: flex;
 }

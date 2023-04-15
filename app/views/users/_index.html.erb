@@ -1,15 +1,13 @@
 <div class="d-flex">
   <% users.each do |user| %>
-    <div class="m-2">
-      <div class="card">
-      <%= link_to user_path(user), class: "user-link" do %>
-        <div class="card-body text-center pb-0">
-          <%= image_tag user.get_icon, size: "96x96" %><br>
-          <%= user.id if current_user.is_admin? %>
-          <h6 class="username"><%= user.name %></h6>
-        </div>
-      <% end %>
+    <div class="card m-2" style="width:12em">
+    <%= link_to user_path(user), class: "user-link" do %>
+      <div class="card-body text-center pb-0">
+        <%= image_tag user.get_icon, size: "96x96" %><br>
+        <%= content_tag :span, "ID: #{user.id}", class: "font-weight-bold", if: current_user.is_admin? %>
+        <h6 style="width:10em; height:2em"><%= user.name %></h6>
       </div>
+    <% end %>
     </div>
   <% end %>
 </div>
