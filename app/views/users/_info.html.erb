@@ -4,12 +4,11 @@
     <!--設定・フォロー・停止ボタン-->
     <% if current_user %>
       <div class="m-auto">
-        <% if user == current_user %>
+        <% if user == current_user %><!--マイページ-->
           <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
             <i class="fas fa-user-cog mr-2"></i>設定する
           <% end %>
-        <% elsif current_user.is_admin %>
-        <!--↓管理者機能-->
+        <% elsif current_user.is_admin %><!--管理者機能-->
           <% if user.is_stopped? %>
             <%= link_to restore_user_path(user), method: :patch, class: "btn btn-success" do %>
               <i class="fas fa-unlock mr-2"></i>復旧する
@@ -18,7 +17,17 @@
             <%= link_to stop_user_path(user), method: :patch, class: "btn btn-warning" do %>
               <i class="fas fa-ban mr-2"></i>停止する
             <% end %>
-          <% end %><!--管理者機能ここまで-->
+          <% end %>
+        <% else %><!--一般userが他userのページを閲覧中-->
+          <% if current_user.following?(user) %>
+            <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-warning" do %>
+              <i class="fas fa-user-minus"></i>フォロー解除
+            <% end %>
+          <% else %>
+            <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-success" do %>
+              <i class="fas fa-user-plus"></i>フォローする
+            <% end %>
+          <% end %>
         <% end %><!--ユーザー種別の判別ここまで-->
       </div>
     <% end %><!--ログイン状態の判別ここまで-->

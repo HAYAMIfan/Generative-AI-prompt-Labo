@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/followings'
+  get 'relationships/followers'
   root to: 'homes#top'
   devise_for :users, controllers: {
   sessions: 'users/sessions'
@@ -8,6 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show edit update] do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
     member do
       patch 'stop'
       patch 'restore'

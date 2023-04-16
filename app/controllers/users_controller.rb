@@ -6,9 +6,11 @@ class UsersController < ApplicationController
   before_action :set_q, only: %i[index search]
 
   def show
-    @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)
+    @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)#userの投稿一覧
     favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
-    @favorite_posts = Post.where(id: favorite_post_ids)
+    @favorite_posts = Post.where(id: favorite_post_ids)#いいね！した投稿一覧
+    @followings = @user.followings#userがフォロー中のuser一覧
+    @followers = @user.followers#userをフォローしているuser一覧
     # 停止されたユーザーの詳細ページは管理人のみアクセス可能
     if @user.is_stopped? && !(current_user && current_user.is_admin?)
       redirect_to posts_path

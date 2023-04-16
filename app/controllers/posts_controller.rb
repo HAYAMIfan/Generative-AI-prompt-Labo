@@ -36,6 +36,9 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
+    
+    
+    @following_posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
     @tag_list = Tag.includes(:post_tags).all
     @all_ranks = Post.create_all_ranks
   end

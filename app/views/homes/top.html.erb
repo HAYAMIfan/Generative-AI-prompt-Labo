@@ -1,16 +1,24 @@
-<div class="container-fluid">
-  <!--ランキング-->
-  <div class="my-3">
-    <h5>今週の人気投稿</h5>
-    <%= render "posts/index", posts: @all_ranks, line: true %>
+<div class="container-fluid d-flex">
+  <div class="sidebar">
+    <h5 class="text-center font-weight-bold">サイト概要</h5>
+    <p>生成AIにどんな文章(＝呪文)を入力すれば課題を解決できるかを探るべく、呪文に関する皆の知見を纏めるための研究所です。</p>
   </div>
-  <!--フォロー中-->
-  <div class="my-3">
-    <h5>フォロー中</h5>
+  <div>
+    <!--ランキング-->
+    <div class="mt-2">
+      <p class="font-weight-bold">今週の人気投稿</p>
+      <%= render "posts/index", posts: @all_ranks, line: true %>
+    </div>
+    <!--フォロー中-->
+    <div class="mt-2">
+      <p class="font-weight-bold">フォロー中</p>
+      <%= render "posts/index", posts: @following_posts, line: true %>
+    </div>
+    <!--新着投稿-->
+    <div class="mt-2">
+      <p class="font-weight-bold">新着投稿</p>
+      <%= render "posts/index", posts: @posts, line: true %>
+    </div>
   </div>
-  <!--新着投稿-->
-  <div class="my-3">
-    <h5>新着投稿</h5>
-    <%= render "posts/index", posts: @posts, line: true %>
-  </div>
+  
 </div>

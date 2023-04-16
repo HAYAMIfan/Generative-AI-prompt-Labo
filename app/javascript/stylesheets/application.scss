@@ -49,10 +49,8 @@
   width: 10em;
   height: 3em;
   margin: auto 1.5em auto 0.5em;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  display: grid;
+  place-items: center start;
 }
 .date{
   color: #979797;
@@ -72,6 +70,13 @@
 // トップページ用一行表示
 .card-line{
   height: 292px;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
+}
+// サイドバー
+.sidebar{
+  width: 22rem;
+  margin: 1rem 1rem 0 0;
+  padding: 0.5rem;
+  border: 2px solid #cfcfcf;
 }
