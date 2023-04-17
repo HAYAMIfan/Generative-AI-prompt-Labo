@@ -36,11 +36,20 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @tag_list = Tag.includes(:post_tags).distinct.all
-    if params[:ranking] == true#ランキング表示
+    if params[:ranking] == "true"#ランキング表示
+      # @posts = Post.create_all_ranks
+      #@post_ids = Favorite.group(:post_id)
+                    #.where(created_at: Time.current.all_week)
+                    #.order('count(post_id) desc')
+                    #.pluck(:post_id)
+      # @posts = Post.where(id: @post_ids).page(params[:page])
       @posts = Post.create_all_ranks
-    elsif params[:following] == true#フォローユーザーの投稿
+      @posts = Kaminari.paginate_array(@posts).page(params[:page])
+
+    elsif params[:following] == "true"#フォローユーザーの投稿
       relationships = Relationship.where(follower_id: current_user.id)
-      @posts = Post.includes(:user).where(users: { is_stopped: false }).where(users: { id: relationships.pluck(:followed_id) }).order("posts.created_at DESC").limit(3)
+      @posts = Post.includes(:user).where(users: { is_stopped: false }).where(users: { id: relationships.pluck(:followed_id) }).order("posts.created_at DESC").page(params[:page])
+
     else#新着順がデフォルト
       @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
     end

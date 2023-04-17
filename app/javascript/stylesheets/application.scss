@@ -48,13 +48,20 @@
   font-weight: bold;
   margin: auto 1em auto 0;
 }
-// 様々なindex表示の外枠
 .card-box{
-  max-width: 1060px;
   margin-top: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
 }
+// 様々なindex表示の外枠
+.card-box::after{
+  content: "";
+  clear: both;
+  display: block;
+  // display: flex;
+  // flex-wrap: wrap;
+}
+// .col-flex{
+//   float: left;
+// }
 // トップページ用一行表示
 .card-line{
   height: 292px;
@@ -70,6 +77,7 @@
 .card{
   width: 20rem;
   margin: 1rem;
+  float: left;
 }
 // 最大20文字のユーザー名を2行に収める
 .username{
@@ -82,4 +90,8 @@
 .date{
   color: #979797;
   margin: auto 0;
+}
+// 無限スクロール用
+nav.pagination {
+  display: none;
 }

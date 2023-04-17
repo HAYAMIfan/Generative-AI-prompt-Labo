@@ -4,14 +4,16 @@
     <p>生成AIにどんな文章(＝呪文)を入力すれば課題を解決できるかを探るべく、呪文に関する皆の知見を纏めるための研究所です。</p>
     <h5 class="text-center font-weight-bold">お知らせ</h5>
   </div>
-  <div style="max-width: 1200px">
+  <div style="max-width: 1500px">
     <!--ランキング-->
     <div class="mt-2">
       <div class="d-flex">
         <p class="font-weight-bold">今週の人気投稿</p>
         <%= link_to "すべて見る", posts_path(ranking: true), class: "link" %>
       </div>
-      <%= render "posts/index", posts: @all_ranks, line: true %>
+      <div class="overflow-auto" style="width: 1500px">
+        <%= render "posts/index", posts: @all_ranks, line: true %>
+      </div>
     </div>
     <!--フォロー中-->
     <% if @following_posts.present? %>
@@ -32,5 +34,5 @@
       <%= render "posts/index", posts: @posts, line: false %>
     </div>
   </div>
-  
+
 </div>

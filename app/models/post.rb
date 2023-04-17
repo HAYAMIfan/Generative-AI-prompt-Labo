@@ -14,7 +14,8 @@ class Post < ApplicationRecord
 
   # 週間のお気に入り数でランキングを作成する
   def self.create_all_ranks
-    Post.find(Favorite.group(:post_id).where(created_at: Time.current.all_week).order('count(post_id) desc').pluck(:post_id))
+    #Post.find(Favorite.group(:post_id).where(created_at: Time.current.all_week).order('count(post_id) desc').pluck(:post_id))
+    Post.find(Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id))
   end
 
   def self.ransackable_attributes(auth_object = nil)

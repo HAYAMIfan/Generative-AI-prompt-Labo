@@ -1,5 +1,6 @@
-<div class="<%= line ? 'card-line' : 'card-box' %>">
+<div class="<%= line ? 'card-line' : 'card-box scroll-list jscroll' %>">
   <% posts.each do |post| %>
+  <!--<div class="col-flex">-->
     <%= link_to post_path(post) do %>
     <!--カード一つ一つ-->
       <div class="card">
@@ -17,12 +18,21 @@
         </div>
       </div>
     <% end %>
+  <!--</div>-->
   <% end %>
-  <!--レイアウト調整のための数合わせ生成-->
-    <% if posts.length % 3 === 1 %>
-      <div class="card m-3" style="visibility:hidden"></div>
-      <div class="card m-3" style="visibility:hidden"></div>
-    <% elsif posts.length % 3 === 2 %>
-      <div class="card m-3" style="visibility:hidden"></div>
-    <% end %>
+  <%= paginate posts %>
 </div>
+    
+<script>
+  // 無限スクロールの処理
+$(window).on('scroll', function() {
+    scrollHeight = $(document).height();
+    scrollPosition = $(window).height() + $(window).scrollTop();
+    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+          $('.jscroll').jscroll({
+            contentSelector: '.scroll-list',
+            nextSelector: 'span.next:last a'
+          });
+    }
+});
+</script>
