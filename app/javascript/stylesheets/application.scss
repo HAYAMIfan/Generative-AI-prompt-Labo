@@ -1,6 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+.link{
+  text-decoration: none;
+  color: #262626;
+}
+.link:hover{
+  color: #262626;
+}
 // タブ関連
 .nav-link {
   background: #fff4e4;
@@ -12,29 +19,17 @@
   box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
 }
-// リンク関連
-.link{
+.post-link{
   text-decoration: none;
   color: black;
 }
-.link:hover{
+.post-link:hover{
   color: black;
 }
-.link:visited{
+.post-link:visited{
   text-decoration: none;
   color: #858585;
 }
-// 検索エリアの幅
-.search-area{
-  width: 550px;
-  margin-left: auto;
-}
-
-.label{
-  font-weight: bold;
-  margin: auto 1em auto 0;
-}
-
 .user-link{
   text-decoration: none;
   color: black;
@@ -44,7 +39,39 @@
   box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
 }
-// 最大20文字のユーザー名を2行に収めて、溢れる場合は省略する
+// 検索エリアの幅
+.search-area{
+  width: 550px;
+  margin-left: auto;
+}
+.label{
+  font-weight: bold;
+  margin: auto 1em auto 0;
+}
+// 様々なindex表示の外枠
+.card-box{
+  max-width: 1060px;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+// トップページ用一行表示
+.card-line{
+  height: 292px;
+  display: flex;
+}
+// トップページと投稿一覧のサイドバー
+.sidebar{
+  width: 22rem;
+  margin: 1rem 1rem 0 0;
+  padding: 0.5rem;
+  border: 2px solid #cfcfcf;
+}
+.card{
+  width: 20rem;
+  margin: 1rem;
+}
+// 最大20文字のユーザー名を2行に収める
 .username{
   width: 10em;
   height: 3em;
@@ -55,28 +82,4 @@
 .date{
   color: #979797;
   margin: auto 0;
-}
-.card{
-  width: 20rem;
-}
-// 様々なindex表示の外枠
-.card-box{
-  justify-content: center;
-  width: auto;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-}
-// トップページ用一行表示
-.card-line{
-  height: 292px;
-  margin-top: 0.5rem;
-  display: flex;
-}
-// サイドバー
-.sidebar{
-  width: 22rem;
-  margin: 1rem 1rem 0 0;
-  padding: 0.5rem;
-  border: 2px solid #cfcfcf;
 }

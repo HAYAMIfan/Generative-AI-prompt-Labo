@@ -2,9 +2,9 @@
   <% posts.each do |post| %>
     <%= link_to post_path(post) do %>
     <!--カード一つ一つ-->
-      <div class="card m-3">
+      <div class="card">
         <div class="card-body px-2 pb-0">
-          <h5 class="card-title link" style="height: 100px"><%= post.title.truncate(45, omission: "...") %></h5>
+          <h5 class="card-title post-link" style="height: 100px"><%= post.title.truncate(45, omission: "...") %></h5>
           <!--投稿者情報を表示する-->
           <%= render "posts/author", post: post %>
           <div class="d-flex align-items-center">

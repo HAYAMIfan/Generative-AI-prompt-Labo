@@ -2,7 +2,7 @@
   <div class="row">
     <%= render "image", post: @post %><!--左側  画像エリア-->
     <!--右側  文章エリア-->
-    <div class="col-xxl-4 col-lg-5 col-md-6" style="height: 900px">
+    <div class="col-xxl-4 col-lg-5 col-md-6">
       <h3><%=simple_format(@post.title)%></h3>
       <!--投稿詳細の疑似ヘッダー-->
       <div class="d-flex">
@@ -26,24 +26,26 @@
         <% end %>
       </div><!--疑似ヘッダーここまで-->
       <!--本文-->
-      <div class="overflow-auto p-2" style="background-color:#fff2e5">
-        <%= simple_format(@post.content) %>
-      </div>
-      <!--タグ一覧-->
-      <div>
-        <% @post_tags.each do |tag| %>
-          <% if tag.posts.count > 0 %>
-            <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
-            <%= "(#{tag.posts.count})" %>
+      <div class="overflow-auto" style="height: 760px">
+        <div class="p-2" style="background-color:#fff2e5">
+          <%= simple_format(@post.content) %>
+        </div>
+        <!--タグ一覧-->
+        <div>
+          <% @post_tags.each do |tag| %>
+            <% if tag.posts.count > 0 %>
+              <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
+              <%= "(#{tag.posts.count})" %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <!--コメント欄-->
-      <div class="my-4 comment_list">
-        <%= render 'post_comments/comment_list', post: @post, post_comments: @post_comments %>
-      </div>
-      <div class="comment_form">
-        <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>
+        </div>
+        <!--コメント欄-->
+        <div class="my-4 comment_list">
+          <%= render 'post_comments/comment_list', post: @post, post_comments: @post_comments %>
+        </div>
+        <div class="comment_form">
+          <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>
+        </div>
       </div>
     </div><!--右側ここまで-->
   </div>

@@ -35,12 +35,15 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
-    
-    
-    @following_posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
-    @tag_list = Tag.includes(:post_tags).all
-    @all_ranks = Post.create_all_ranks
+    @tag_list = Tag.includes(:post_tags).distinct.all
+    if params[:ranking] == true#ランキング表示
+      @posts = Post.create_all_ranks
+    elsif params[:following] == true#フォローユーザーの投稿
+      relationships = Relationship.where(follower_id: current_user.id)
+      @posts = Post.includes(:user).where(users: { is_stopped: false }).where(users: { id: relationships.pluck(:followed_id) }).order("posts.created_at DESC").limit(3)
+    else#新着順がデフォルト
+      @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
+    end
   end
 
   def search

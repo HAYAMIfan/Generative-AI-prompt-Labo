@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   end
 
   # 週間のお気に入り数でランキングを作成する
-  def self.create_all_ranks 
+  def self.create_all_ranks
     Post.find(Favorite.group(:post_id).where(created_at: Time.current.all_week).order('count(post_id) desc').pluck(:post_id))
   end
 

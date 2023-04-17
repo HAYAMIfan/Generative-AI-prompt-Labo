@@ -7,15 +7,17 @@
         <% if user_signed_in? %><!--ようこそメッセージ-->
         <p class="font-weight-bold"><%= current_user.is_admin? ? "管理者ログイン中！" : "ようこそ、#{current_user.name}さん！" %></p>
         <% else %>
-          <p class="font-weight-bold">ようこそ、訪問者さん！</p>
+          <p class="font-weight-bold">初めまして！</p>
         <% end %><!--ようこそメッセージここまで-->
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "投稿一覧", posts_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "フォロー中", root_path, class: "nav-link" %></li>
+          <% if user_signed_in? %>
+            <li class="nav-item"><%= link_to "フォロー中", posts_path, class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "投稿する", new_post_path, class: "nav-link" %></li>
-          <% if user_signed_in? && current_user.is_admin? %>
+            <% if current_user.is_admin? %>
             <li class="nav-item"><%= link_to "ユーザー一覧", users_path, class: "nav-link" %></li>
+            <% end %>
           <% end %>
         </ul>
       </div>
