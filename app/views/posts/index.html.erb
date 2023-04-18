@@ -11,7 +11,15 @@
     </div>
     <div>
       <div class="d-flex justify-content-between">
-      <h3 class="my-2">新着投稿</h3>
+      <h3 class="my-2">
+        <% if params[:ranking] %>
+          人気の投稿
+        <% elsif params[:following] %>
+          フォローユーザーの投稿
+        <% else %>
+          新着投稿
+        <% end %>
+      </h3>
       <%= render "search_form", q: @q %>
     </div>
     <%= render "index", posts: @posts, line: false %>

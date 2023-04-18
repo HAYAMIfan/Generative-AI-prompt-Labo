@@ -8,10 +8,10 @@
     <!--ランキング-->
     <div class="mt-2">
       <div class="d-flex">
-        <p class="font-weight-bold">今週の人気投稿</p>
+        <p class="font-weight-bold">人気の投稿</p>
         <%= link_to "すべて見る", posts_path(ranking: true), class: "link" %>
       </div>
-      <div class="overflow-auto" style="width: 1500px">
+      <div>
         <%= render "posts/index", posts: @all_ranks, line: true %>
       </div>
     </div>

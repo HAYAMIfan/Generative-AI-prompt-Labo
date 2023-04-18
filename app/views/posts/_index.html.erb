@@ -1,6 +1,5 @@
-<div class="<%= line ? 'card-line' : 'card-box scroll-list jscroll' %>">
+<div class="<%= line ? 'card-line overflow-auto' : 'card-box scroll-list jscroll' %>" style="max-width: 1450px">
   <% posts.each do |post| %>
-  <!--<div class="col-flex">-->
     <%= link_to post_path(post) do %>
     <!--カード一つ一つ-->
       <div class="card">
@@ -18,7 +17,6 @@
         </div>
       </div>
     <% end %>
-  <!--</div>-->
   <% end %>
   <%= paginate posts %>
 </div>

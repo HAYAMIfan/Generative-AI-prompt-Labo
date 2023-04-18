@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :authenticate_user!, except: %i[show index]
+  before_action :authenticate_user!, except: %i[show index search]
   before_action :set_post, only: %i[show edit update destroy]
 
   def show
@@ -37,12 +37,6 @@ class PostsController < ApplicationController
     @q = Post.ransack(params[:q])
     @tag_list = Tag.includes(:post_tags).distinct.all
     if params[:ranking] == "true"#ランキング表示
-      # @posts = Post.create_all_ranks
-      #@post_ids = Favorite.group(:post_id)
-                    #.where(created_at: Time.current.all_week)
-                    #.order('count(post_id) desc')
-                    #.pluck(:post_id)
-      # @posts = Post.where(id: @post_ids).page(params[:page])
       @posts = Post.create_all_ranks
       @posts = Kaminari.paginate_array(@posts).page(params[:page])
 

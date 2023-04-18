@@ -3,7 +3,7 @@
     <div class="card text-center m-2" style="width:12em">
     <%= link_to user_path(user), class: "user-link" do %>
       <%= image_tag user.get_icon, size: "96x96" %><br>
-      <%= content_tag :span, "ID: #{user.id}", class: "font-weight-bold" if current_user.is_admin? %>
+      <%= content_tag :span, "ID: #{user.id}", class: "font-weight-bold" if user_signed_in? && current_user.is_admin? %>
       <h6 class="mx-auto" style="width:10em; height:2em"><%= user.name %></h6>
     <% end %>
     </div>

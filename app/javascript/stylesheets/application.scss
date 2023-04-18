@@ -1,6 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+// 「すべて見る」など
 .link{
   text-decoration: none;
   color: #262626;
@@ -19,6 +20,7 @@
   box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.5);
   transform: translateY(-1px);
 }
+// 投稿へのリンク
 .post-link{
   text-decoration: none;
   color: black;
@@ -30,6 +32,7 @@
   text-decoration: none;
   color: #858585;
 }
+// ユーザーへのリンク
 .user-link{
   text-decoration: none;
   color: black;
@@ -48,20 +51,15 @@
   font-weight: bold;
   margin: auto 1em auto 0;
 }
+// 通常のindex表示の外枠
 .card-box{
   margin-top: 0.5rem;
 }
-// 様々なindex表示の外枠
 .card-box::after{
   content: "";
   clear: both;
   display: block;
-  // display: flex;
-  // flex-wrap: wrap;
 }
-// .col-flex{
-//   float: left;
-// }
 // トップページ用一行表示
 .card-line{
   height: 292px;
@@ -69,13 +67,13 @@
 }
 // トップページと投稿一覧のサイドバー
 .sidebar{
-  width: 22rem;
+  width: 370px;
   margin: 1rem 1rem 0 0;
   padding: 0.5rem;
   border: 2px solid #cfcfcf;
 }
 .card{
-  width: 20rem;
+  width: 320px;
   margin: 1rem;
   float: left;
 }
@@ -87,6 +85,7 @@
   display: grid;
   place-items: center start;
 }
+// 日付の表示について
 .date{
   color: #979797;
   margin: auto 0;
