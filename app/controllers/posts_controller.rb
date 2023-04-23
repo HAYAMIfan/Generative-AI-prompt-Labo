@@ -36,29 +36,19 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @tag_list = Tag.includes(:post_tags).distinct.all
-    if params[:ranking] == "true"#ランキング表示
-      @posts = Post.create_all_ranks
-      @posts = Kaminari.paginate_array(@posts).page(params[:page])
-
-    elsif params[:following] == "true"#フォローユーザーの投稿
-      relationships = Relationship.where(follower_id: current_user.id)
-      @posts = Post.includes(:user).where(users: { is_stopped: false }).where(users: { id: relationships.pluck(:followed_id) }).order("posts.created_at DESC").page(params[:page])
-
-    else#新着順がデフォルト
-      @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC").page(params[:page])
-    end
-  end
-
-  def search
-    @q = Post.ransack(params[:q])
-    @results = @q.result(distinct: true).order("created_at DESC").page(params[:page]).per(6)
-    @tag_list = Tag.includes(:post_tags).all
-
-    if params[:tag_id].present?
+    if params[:q].present?
+      @posts = Post.search_by_keyword(query: @q)
+    elsif params[:tag_id].present?
       @tag = Tag.find(params[:tag_id])
-      @results = @tag.posts.order(created_at: :desc).all.page(params[:page]).per(6)
+      @posts = Post.search_by_tag(tag: @tag)
+    elsif params[:ranking] == "true"#ランキング表示
+      @posts = Post.create_all_ranks
+    elsif params[:following] == "true"#フォローユーザーの投稿
+      @posts = Post.post_by_followings(user_id: current_user.id)
+    else#新着順がデフォルト
+      @posts = Post.post_recent
     end
-
+    @posts = Kaminari.paginate_array(@posts).page(params[:page])
   end
 
   def new

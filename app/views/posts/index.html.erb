@@ -4,7 +4,7 @@
       <h5>タグリスト</h5>
       <% @tag_list.each do |list| %>
         <% if list.posts.count > 0 %>
-          <%= link_to list.tag_name, tag_posts_path(tag_id: list.id) %>
+          <%= link_to list.tag_name, posts_path(tag_id: list.id) %>
           <%= "(#{list.posts.count})" %>
         <% end %>
       <% end %>
@@ -12,13 +12,19 @@
     <div>
       <div class="d-flex justify-content-between">
       <h3 class="my-2">
-        <% if params[:ranking] %>
-          人気の投稿
+        <% if params[:q] %>
+        <%# byebug %>
+          <%= params[:q][:title_or_content_cont] %>の検索結果
+        <% elsif params[:tag_id] %>
+          <%= @tag.tag_name %>の検索結果
+        <% elsif params[:ranking] %>
+          (人気順)
         <% elsif params[:following] %>
-          フォローユーザーの投稿
+          (フォロー中)
         <% else %>
-          新着投稿
+          (新着順)
         <% end %>
+        一覧
       </h3>
       <%= render "search_form", q: @q %>
     </div>

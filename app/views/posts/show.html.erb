@@ -15,13 +15,13 @@
         <div class="ml-4 favorite-btn_<%= @post.id %>">
           <%= render "favorites/favorite-btn", post: @post %>
         </div>
-        <!--投稿者だけに編集ボタン、投稿者と管理者に削除ボタンを表示-->
+        <!--投稿者と管理者に編集・削除ボタンを表示-->
         <% if current_user %>
           <% if @post.user == current_user || current_user.is_admin? %>
-          <div class="ml-auto">
-            <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
-            <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
-          </div>
+            <div class="ml-auto">
+              <%= link_to '編集', edit_post_path(@post), class: "btn btn-sm btn-outline-info" %><br>
+              <%= link_to '削除', @post, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>
+            </div>
           <% end %>
         <% end %>
       </div><!--疑似ヘッダーここまで-->
@@ -34,7 +34,7 @@
         <div>
           <% @post_tags.each do |tag| %>
             <% if tag.posts.count > 0 %>
-              <%= link_to tag.tag_name, tag_posts_path(tag_id: tag.id) %>
+              <%= link_to tag.tag_name, posts_path(tag_id: tag.id) %>
               <%= "(#{tag.posts.count})" %>
             <% end %>
           <% end %>
@@ -43,9 +43,11 @@
         <div class="my-4 comment_list">
           <%= render 'post_comments/comment_list', post: @post, post_comments: @post_comments %>
         </div>
-        <div class="comment_form">
-          <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>
-        </div>
+        <% if current_user %>
+          <div class="comment_form">
+            <%= render 'post_comments/comment_form', post: @post, post_comment: @post_comment %>
+          </div>
+        <% end %>
       </div>
     </div><!--右側ここまで-->
   </div>
