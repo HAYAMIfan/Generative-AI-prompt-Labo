@@ -1,11 +1,11 @@
-<div class="container">
-  <div class="row d-flex">
+<div class="container-fluid">
+  <div class="d-flex">
     <!--左側・ユーザー情報-->
-    <div class="col-md-4">
+    <div class="sidebar">
       <%= render 'info', user: @user %>
     </div>
     <!--右側・各種一覧-->
-    <div class="col-md-8 border border-2">
+    <div class="border border-2" style="max-width: 1410px">
       <!--タブ-->
       <ul class="nav nav-tabs nav-pills" role="tablist">
         <li class="active" role="presentation">

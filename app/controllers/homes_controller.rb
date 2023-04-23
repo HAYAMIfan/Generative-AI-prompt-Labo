@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
   def top
-    # 直近7日間の人気ランキング
+    #ランキング表示
     @all_ranks = Post.create_all_ranks
     @all_ranks = Kaminari.paginate_array(@all_ranks).page(params[:page]).per(4)
 

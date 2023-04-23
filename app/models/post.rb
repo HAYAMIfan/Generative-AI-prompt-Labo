@@ -12,7 +12,7 @@ class Post < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
-  
+
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title content]
@@ -21,7 +21,7 @@ class Post < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     %w[title content]
   end
-  
+
   def self.search_by_keyword(query:)
     query.result(distinct: true).order("created_at DESC")
   end
@@ -31,10 +31,9 @@ class Post < ApplicationRecord
   end
 # 週間のお気に入り数でランキングを作成する
   def self.create_all_ranks
-    #Post.find(Favorite.group(:post_id).where(created_at: Time.current.all_week).order('count(post_id) desc').pluck(:post_id))
     Post.find(Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id))
   end
-  
+
   def self.post_by_followings(user_id:)
     relationships = Relationship.where(follower_id: user_id)
     Post.includes(:user).where(users: { is_stopped: false }).where(users: { id: relationships.pluck(:followed_id) }).order("posts.created_at DESC")

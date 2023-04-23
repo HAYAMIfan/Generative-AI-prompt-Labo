@@ -7,6 +7,9 @@ class PostsController < ApplicationController
     @post_tags = @post.tags
     @post_comment = PostComment.new
     @post_comments = @post.post_comments.includes(:user).where(users: { is_stopped: false })
+    if @post.user.is_stopped?
+      redirect_to root_path
+    end
   end
 
   def edit
@@ -36,9 +39,9 @@ class PostsController < ApplicationController
   def index
     @q = Post.ransack(params[:q])
     @tag_list = Tag.includes(:post_tags).distinct.all
-    if params[:q].present?
+    if params[:q].present?#キーワード検索結果
       @posts = Post.search_by_keyword(query: @q)
-    elsif params[:tag_id].present?
+    elsif params[:tag_id].present?#タグ検索結果
       @tag = Tag.find(params[:tag_id])
       @posts = Post.search_by_tag(tag: @tag)
     elsif params[:ranking] == "true"#ランキング表示

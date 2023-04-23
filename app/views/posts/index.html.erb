@@ -11,18 +11,17 @@
     </div>
     <div>
       <div class="d-flex justify-content-between">
-      <h3 class="my-2">
+      <h3 class="my-3 mr-4">
         <% if params[:q] %>
-        <%# byebug %>
-          <%= params[:q][:title_or_content_cont] %>の検索結果
+          「<%= params[:q][:title_or_content_cont] %>」の検索結果
         <% elsif params[:tag_id] %>
-          <%= @tag.tag_name %>の検索結果
+          「<%= @tag.tag_name %>」の検索結果
         <% elsif params[:ranking] %>
-          (人気順)
+          人気順
         <% elsif params[:following] %>
-          (フォロー中)
+          フォロー中
         <% else %>
-          (新着順)
+          新着順
         <% end %>
         一覧
       </h3>
