@@ -8,7 +8,7 @@
 User.create!(
   [
     {
-      email: 'admin@gmail.com',
+      email: 'admin@test.com',
       name: '管理人',
       password: "1234admin",
       is_admin: true

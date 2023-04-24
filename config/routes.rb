@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show edit update] do
-    resource :relationships, only: [:create, :destroy]
+    resource :relationships, only: %i[create destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
     member do
@@ -22,8 +22,5 @@ Rails.application.routes.draw do
     resource :favorites , only: %i[create destroy]
     resources :post_comments, only: %i[create destroy]
   end
-  resources :tags do
-    get 'posts', to: 'posts#search'
-  end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :tags, only: %i[index destroy]
 end

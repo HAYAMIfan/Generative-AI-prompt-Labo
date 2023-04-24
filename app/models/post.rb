@@ -8,12 +8,6 @@ class Post < ApplicationRecord
 
   validates :images, blob: { content_type: %w[image/png image/jpg image/jpeg], size: [ less_than: 1.megabytes] }
 
-  def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
-  end
-
-
-
   def self.ransackable_attributes(auth_object = nil)
     %w[title content]
   end
@@ -23,15 +17,31 @@ class Post < ApplicationRecord
   end
 
   def self.search_by_keyword(query:)
-    query.result(distinct: true).order("created_at DESC")
+    Post.includes(:user).where(
+      users: {is_stopped: false},
+      posts: {id: query.result(distinct: true).order("created_at DESC").pluck(:id)}
+    )
+    #query.result(distinct: true).order("created_at DESC")
   end
 
   def self.search_by_tag(tag:)
-    tag.posts.order("created_at DESC")
+    Post.includes(:user).where(
+      users: {is_stopped: false},
+      posts: {id: tag.posts.order("posts.created_at DESC").pluck(:id)}
+    )
+    # tag.posts.order("created_at DESC")
+  end
+
+  def favorited_by?(user)
+    Post.includes(:favorites)
+    favorites.exists?(user_id: user.id)
   end
 # 週間のお気に入り数でランキングを作成する
   def self.create_all_ranks
-    Post.find(Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id))
+    Post.includes(:user).where(
+      users:{is_stopped: false},
+      posts:{id: Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id)}
+    )
   end
 
   def self.post_by_followings(user_id:)

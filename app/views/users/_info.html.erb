@@ -31,6 +31,6 @@
     </div>
   <% end %><!--ログイン状態の判別ここまで-->
 </div>
-<h4 class="mb-3"><%= user.name %></h4>
-<%= "フォロー中："+@followings.count.to_s+"　フォロワー："+@followers.count.to_s %>
-<div class="my-auto text-muted"><%= simple_format(user.description.presence) || "自己紹介コメントを書いてみましょう！" %></div>
+<h4><%= user.name %></h4>
+<h6 class="my-3"><%= "フォロー中："+@followings.count.to_s+"　フォロワー："+@followers.count.to_s %></h6>
+<div class="text-muted"><%= simple_format(user.description.presence) || "自己紹介コメントを書いてみましょう！" %></div>

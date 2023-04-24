@@ -9,8 +9,10 @@
             <%= image_tag post_comment.user.get_icon, size: "64x64" %>
           <% end %>
           <!--投稿者と管理人にのみ削除ボタンを表示-->
-          <% if post_comment.user == current_user || current_user.is_admin? %>
-            <%= link_to '削除', post_post_comment_path(post_comment.post, post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "ml-2 btn btn-sm btn-outline-danger", remote:true %>
+          <% if current_user %>
+            <% if post_comment.user == current_user || current_user.is_admin? %>
+              <%= link_to '削除', post_post_comment_path(post_comment.post, post_comment), method: :delete, data: { confirm: '本当に消しますか？' }, class: "ml-2 btn btn-sm btn-outline-danger", remote:true %>
+            <% end %>
           <% end %>
         </div>
         <%= link_to user_path(post_comment.user_id), class: "link" do %>
