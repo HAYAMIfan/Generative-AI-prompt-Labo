@@ -1,13 +1,8 @@
 <div class="container-fluid">
   <div class="d-flex">
-    <div class="sidebar">
+    <div class="sidebar tag_list">
       <h5>タグリスト</h5>
-      <% @tag_list.each do |list| %>
-        <% if list.posts.count > 0 %>
-          <%= link_to list.tag_name, posts_path(tag_id: list.id) %>
-          <%= "(#{list.posts.count})" %>
-        <% end %>
-      <% end %>
+      <%= render "tags/tag_list", tag_list: @tag_list %>
     </div>
     <div>
       <div class="d-flex justify-content-between">

@@ -38,19 +38,30 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
+    # @tag_list = Tag.includes(:post_tags)
+    #           .select('tags.*, COUNT(post_tags.post_id) AS post_count')
+    #           .group('tags.id')
+    #           .order('post_count DESC')
+    #           .limit(20)
     @tag_list = Tag.includes(:post_tags).distinct.all
+    
     if params[:q].present?#キーワード検索結果
       @posts = Post.search_by_keyword(query: @q)
+      
     elsif params[:tag_id].present?#タグ検索結果
       @tag = Tag.find(params[:tag_id])
       @posts = Post.search_by_tag(tag: @tag)
+      
     elsif params[:ranking] == "true"#ランキング表示
       @posts = Post.create_all_ranks
+      
     elsif params[:following] == "true"#フォローユーザーの投稿
       @posts = Post.post_by_followings(user_id: current_user.id)
+      
     else#新着順がデフォルト
       @posts = Post.post_recent
     end
+    
     @posts = Kaminari.paginate_array(@posts).page(params[:page])
   end
 

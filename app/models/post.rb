@@ -21,7 +21,6 @@ class Post < ApplicationRecord
       users: {is_stopped: false},
       posts: {id: query.result(distinct: true).order("created_at DESC").pluck(:id)}
     )
-    #query.result(distinct: true).order("created_at DESC")
   end
 
   def self.search_by_tag(tag:)
@@ -29,7 +28,6 @@ class Post < ApplicationRecord
       users: {is_stopped: false},
       posts: {id: tag.posts.order("posts.created_at DESC").pluck(:id)}
     )
-    # tag.posts.order("created_at DESC")
   end
 
   def favorited_by?(user)
