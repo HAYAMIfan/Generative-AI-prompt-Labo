@@ -3,7 +3,7 @@
     <%= link_to list.tag_name, posts_path(tag_id: list.id) %>
     <%= "(#{list.posts.count})" %>
     <% if current_user && current_user.is_admin %>
-      <%= link_to tag_path(list.id), method: :delete, remote:true, data: { confirm: '本当に削除しますか？' } do %>
+      <%= link_to tag_path(list.id), method: :delete, data: { confirm: '本当に削除しますか？' } do %>
         <i class="fas fa-times link"></i>
       <% end %>
     <% end %>
