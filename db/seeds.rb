@@ -5,20 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create!(
+user = User.create!(
   [
     {
       email: 'admin@test.com',
       name: '管理人',
       password: "1234admin",
       is_admin: true,
-      icon: File.open("./app/assets/images/admin.png")
     },
     {
       email: 'long@test.com',
-      name: '長文テストアカウント・名前は20文字まで',
+      name: '長文テストアカウント名前は20文字まで',
       password: "longtxt",
-      icon: File.open("./app/assets/images/入道雲.jpeg")
     },
     {
       email: 'test@test.com',
@@ -29,52 +27,61 @@ User.create!(
       email: 'arashi@test.com',
       name: '荒らし',
       password: "typhoon",
-      icon: File.open("./app/assets/images/arashi.png")
     }
   ]
 )
+user[0].icon.attach(io: File.open(Rails.root.join('app/assets/images/admin.png')),
+                  filename: 'admin.png')
+user[1].icon.attach(io: File.open(Rails.root.join('app/assets/images/入道雲.jpeg')),
+                  filename: '入道雲.jpeg')
+user[3].icon.attach(io: File.open(Rails.root.join('app/assets/images/arashi.png')),
+                  filename: 'arashi.png')
 20.times do |n|
-  User.seed do |s|
-    s.name = "水増し#{n}"
-    s.email = "aaa#{n}@gmail.com"
+  User.create! do |s|
+    s.name = "水増し#{n+1}"
+    s.email = "aaa#{n+1}@gmail.com"
     s.password = "123456"
   end
 end
 
 10.times do |n|
-  Relationship.seed do |s|
+  Relationship.create! do |s|
     s.follower_id = 2
     s.followed_id = n+3
   end
 end
 10.times do |n|
-  Relationship.seed do |s|
+  Relationship.create! do |s|
     s.follower_id = n+10
     s.followed_id = 2
   end
 end
 
-Post.create!(
+about = Post.create!(
   user_id: 1,
   title: "当サイトについて",
   content: "最近の生成AIの進歩はまさに日進月歩といった勢いで、このポートフォリオを製作している最中にも様々な変化がありました。<br>当サイトは主にChat GPT3.5とのやりとりから着想を経ており、どんな文章(=呪文、プロンプト)を入力すればChat GPTが答えやすいかを皆で追い求めることをテーマとしています。<br>そのために最低限必要な機能を考えた結果、Chat GPTとのやり取りをスクリーンショットとして添付して投稿し、いいね！で評価しあいコメントを残せるように設計しました。",
-  images: File.open("./app/assets/images/sample_image.png")
 )
+about.images.attach(io: File.open(Rails.root.join('app/assets/images/sample_image.png')),
+                  filename: 'sample_image.png')
 20.times do |n|
   Post.create!(user_id: 2, title: "水増し用投稿#{n+1}", content: "この投稿は水増し用の投稿です",)
 end
-Post.create!(
+post = Post.create!(
   [
     {
       user_id: 2,
       title: "投稿一覧画面において、タイトルは途中で省略されて表示されます\n投稿一覧画面において、タイトルは途中で省略されて表示されます",
-      content: "",
+      content: "長文テスト"*200,
     },
     {
       user_id: 4,
       title: "荒らしの仕業",
       content: "荒らしによる投稿　アカウント停止・復旧のテスト用",
-      images: File.open("./app/assets/images/shizensaigai_typhoon.png")
     }
   ]
 )
+post[0].images.attach(io: File.open(Rails.root.join('app/assets/images/退会処理.png')),
+                  filename: '退会処理.png')
+post[1].images.attach(io: File.open(Rails.root.join('app/assets/images/shizensaigai_typhoon.png')),
+                  filename: 'shizensaigai_typhoon.png')
