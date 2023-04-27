@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @tag_list=@post.tags.pluck(:tag_name).join(nil)
+    @tag = @post.tags.pluck(:tag_name).join(nil)
     user_id = @post.user_id
     # 管理者以外のユーザーが他人の投稿のeditページに移動できないようにする
     unless user_id == current_user.id || current_user.is_admin?
@@ -44,24 +44,24 @@ class PostsController < ApplicationController
     #           .order('post_count DESC')
     #           .limit(20)
     @tag_list = Tag.includes(:post_tags).distinct.all
-    
+
     if params[:q].present?#キーワード検索結果
       @posts = Post.search_by_keyword(query: @q)
-      
+
     elsif params[:tag_id].present?#タグ検索結果
       @tag = Tag.find(params[:tag_id])
       @posts = Post.search_by_tag(tag: @tag)
-      
+
     elsif params[:ranking] == "true"#ランキング表示
       @posts = Post.create_all_ranks
-      
+
     elsif params[:following] == "true"#フォローユーザーの投稿
       @posts = Post.post_by_followings(user_id: current_user.id)
-      
+
     else#新着順がデフォルト
       @posts = Post.post_recent
     end
-    
+
     @posts = Kaminari.paginate_array(@posts).page(params[:page])
   end
 
