@@ -6,30 +6,32 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create!(
-  {
-    email: 'admin@test.com',
-    name: '管理人',
-    password: "1234admin",
-    is_admin: true,
-    icon: File.open("./app/assets/images/admin.png")
-  },
-  {
-    email: 'long@test.com',
-    name: '長文テストアカウント・名前は20文字まで',
-    password: "longtxt",
-    icon: File.open("./app/assets/images/入道雲.jpeg")
-  },
-  {
-    email: 'test@test.com',
-    name: '山田・テスト・太郎',
-    password: "yamatesutaro",
-  },
-  {
-    email: 'arashi@test.com',
-    name: '荒らし',
-    password: "typhoon",
-    icon: File.open("./app/assets/images/arashi.png")
-  }
+  [
+    {
+      email: 'admin@test.com',
+      name: '管理人',
+      password: "1234admin",
+      is_admin: true,
+      icon: File.open("./app/assets/images/admin.png")
+    },
+    {
+      email: 'long@test.com',
+      name: '長文テストアカウント・名前は20文字まで',
+      password: "longtxt",
+      icon: File.open("./app/assets/images/入道雲.jpeg")
+    },
+    {
+      email: 'test@test.com',
+      name: '山田・テスト・太郎',
+      password: "yamatesutaro",
+    },
+    {
+      email: 'arashi@test.com',
+      name: '荒らし',
+      password: "typhoon",
+      icon: File.open("./app/assets/images/arashi.png")
+    }
+  ]
 )
 20.times do |n|
   User.seed do |s|
@@ -62,15 +64,17 @@ Post.create!(
   Post.create!(user_id: 2, title: "水増し用投稿#{n+1}", content: "この投稿は水増し用の投稿です",)
 end
 Post.create!(
-  {
-    user_id: 2,
-    title: "投稿一覧画面において、タイトルは途中で省略されて表示されます\n投稿一覧画面において、タイトルは途中で省略されて表示されます",
-    content: "",
-  },
-  {
-    user_id: 4,
-    title: "荒らしの仕業",
-    content: "荒らしによる投稿　アカウント停止・復旧のテスト用",
-    images: File.open("./app/assets/images/shizensaigai_typhoon.png")
-  }
+  [
+    {
+      user_id: 2,
+      title: "投稿一覧画面において、タイトルは途中で省略されて表示されます\n投稿一覧画面において、タイトルは途中で省略されて表示されます",
+      content: "",
+    },
+    {
+      user_id: 4,
+      title: "荒らしの仕業",
+      content: "荒らしによる投稿　アカウント停止・復旧のテスト用",
+      images: File.open("./app/assets/images/shizensaigai_typhoon.png")
+    }
+  ]
 )
