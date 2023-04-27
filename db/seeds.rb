@@ -15,7 +15,7 @@ user = User.create!(
     },
     {
       email: 'long@test.com',
-      name: '長文テストアカウント名前は20文字まで',
+      name: '長文テストアカウント・名前は20文字まで',
       password: "longtxt",
     },
     {
