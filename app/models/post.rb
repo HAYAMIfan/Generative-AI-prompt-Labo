@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
-
+  has_many :weekly_favorites, lambda { where(created_at: Time.current.ago(7.days)..Time.current) } , class_name: 'Favorite'
   validates :images, blob: { content_type: %w[image/png image/jpg image/jpeg], size: [ less_than: 1.megabytes] }
 
   def self.ransackable_attributes(auth_object = nil)
@@ -36,10 +36,11 @@ class Post < ApplicationRecord
   end
 # 週間のお気に入り数でランキングを作成する
   def self.create_all_ranks
-    Post.includes(:user).where(
-      users:{is_stopped: false},
-      posts:{id: Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id)}
-    )
+    Post.joins(:user).left_joins(:weekly_favorites).where(user: { is_stopped: false} ).group(:id).order("count(favorites.post_id) desc")
+#    Post.includes(:user).where(
+#      users:{is_stopped: false},
+#      posts:{id: Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id)}
+#    )
   end
 
   def self.post_by_followings(user_id:)
