@@ -7,34 +7,44 @@
     <!--右側・各種一覧-->
     <div class="border border-2" style="max-width: 1410px">
       <!--タブ-->
-      <ul class="nav nav-tabs nav-pills" role="tablist">
-        <li class="active" role="presentation">
-          <a class="nav-link" aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab">ユーザーの投稿一覧</a>
+      <ul class="nav nav-tabs">
+        <li class="active nav-item">
+          <%= link_to "ユーザーの投稿一覧", user_path(@user), class: "nav-link #{@posts.present? ? 'active-tab' : ''}" %>
         </li>
-        <li role="presentation">
-          <a class="nav-link" aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab">いいね！した投稿</a>
+        <li class="nav-item">
+          <%= link_to "いいね！した投稿一覧", user_path(@user, tab_type: 'favorite_posts'), class: "nav-link #{@favorite_posts.present? ? 'active-tab' : ''}" %>
         </li>
-        <li role="presentation">
-          <a class="nav-link" aria-controls="tab_c" data-toggle="tab" href="#tab_c" role="tab">フォロー中一覧</a>
+        <li class="nav-item">
+          <%= link_to "フォロー中一覧", user_path(@user, tab_type: 'followings'), class: "nav-link #{@followings_tab.present? ? 'active-tab' : ''}" %>
         </li>
-        <li role="presentation">
-          <a class="nav-link" aria-controls="tab_d" data-toggle="tab" href="#tab_d" role="tab">フォロワー一覧</a>
+        <li class="nav-item">
+          <%= link_to "フォロワー一覧", user_path(@user, tab_type: 'followers'), class: "nav-link #{@followers_tab.present? ? 'active-tab' : ''}" %>
         </li>
       </ul>
       <div class="tab-content">
-        <div class="tab-pane active" id="tab_a" role="tabpanel">
-          <%= render 'posts/index', posts: @posts, line: false %>
-        </div>
-        <div class="tab-pane" id="tab_b" role="tabpanel">
+        <% if @favorite_posts.present? %>
           <%= render 'posts/index', posts: @favorite_posts, line: false %>
-        </div>
-        <div class="tab-pane" id="tab_c" role="tabpanel">
+        <% elsif @followings_tab.present? %>
           <%= render 'index', users: @followings %>
-        </div>
-        <div class="tab-pane" id="tab_d" role="tabpanel">
+        <% elsif @followers_tab.present? %>
           <%= render 'index', users: @followers %>
-        </div>
+        <% else %>
+          <%= render 'posts/index', posts: @posts, line: false %>
+        <% end %>
       </div><!--タブの中身ここまで-->
     </div><!--右側ここまで-->
   </div>
 </div>
+
+<!--<li class="active nav-item">-->
+<!--  <a class="nav-link" aria-controls="tab_a" data-toggle="tab" href="#tab_a" role="tab">ユーザーの投稿一覧</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--  <a class="nav-link" aria-controls="tab_b" data-toggle="tab" href="#tab_b" role="tab">いいね！した投稿</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--  <a class="nav-link" aria-controls="tab_c" data-toggle="tab" href="#tab_c" role="tab">フォロー中一覧</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--  <a class="nav-link" aria-controls="tab_d" data-toggle="tab" href="#tab_d" role="tab">フォロワー一覧</a>-->
+<!--</li>-->

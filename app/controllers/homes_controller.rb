@@ -12,6 +12,6 @@ class HomesController < ApplicationController
       @following_posts = []
     end
     @posts = Post.includes(:user).where(users: { is_stopped: false }).order("posts.created_at DESC")
-    @posts = Kaminari.paginate_array(@posts).page(params[:page]).per(12)
+    @posts = Kaminari.paginate_array(@posts).page(params[:page]).per(16)
   end
 end

@@ -5,17 +5,33 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update stop restore]
 
   def show
-    #userの投稿一覧
-    @posts = @user.posts.order("created_at DESC").page(params[:page]).per(8)
-    #いいね！した投稿一覧
-    favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
-    @favorite_posts = Post.includes(:user).where(
-      users: {is_stopped: false},
-      posts: {id: favorite_post_ids}).order("posts.created_at DESC")
-    @favorite_posts = Kaminari.paginate_array(@favorite_posts).page(params[:page]).per(8)
-    
+    if params[:tab_type] == 'favorite_posts'
+      favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
+      @favorite_posts = Post.includes(:user).where(
+        users: {is_stopped: false},
+        posts: {id: favorite_post_ids}).order("posts.created_at DESC")
+      @favorite_posts = Kaminari.paginate_array(@favorite_posts).page(params[:page])
+    elsif params[:tab_type] == 'followings'
+      @followings_tab = params[:tab_type]
+    elsif params[:tab_type] == 'followers'
+      @followers_tab = params[:tab_type]
+    else 
+      @posts = @user.posts.order("created_at DESC").page(params[:page])#userの投稿一覧
+    end
     @followings = @user.followings.where(is_stopped: false)#userがフォロー中のuser一覧
     @followers = @user.followers.where(is_stopped: false)#userをフォローしているuser一覧
+
+    # #userの投稿一覧
+    # @posts = @user.posts.order("created_at DESC").page(params[:page])
+    # #いいね！した投稿一覧
+    # favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
+    # @favorite_posts = Post.includes(:user).where(
+    #   users: {is_stopped: false},
+    #   posts: {id: favorite_post_ids}).order("posts.created_at DESC")
+    # @favorite_posts = Kaminari.paginate_array(@favorite_posts).page(params[:page])
+    
+    # @followings = @user.followings.where(is_stopped: false)#userがフォロー中のuser一覧
+    # @followers = @user.followers.where(is_stopped: false)#userをフォローしているuser一覧
     
     # 停止されたユーザーの詳細ページは管理人のみアクセス可能
     if @user.is_stopped? && !(current_user && current_user.is_admin?)
