@@ -9,17 +9,16 @@ class UsersController < ApplicationController
       favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
       @favorite_posts = Post.includes(:user).where(
         users: {is_stopped: false},
-        posts: {id: favorite_post_ids}).order("posts.created_at DESC")
-      @favorite_posts = Kaminari.paginate_array(@favorite_posts).page(params[:page])
+        posts: {id: favorite_post_ids}).order("posts.created_at DESC").page(params[:page])
     elsif params[:tab_type] == 'followings'
       @followings_tab = params[:tab_type]
     elsif params[:tab_type] == 'followers'
       @followers_tab = params[:tab_type]
-    else 
+    else
       @posts = @user.posts.order("created_at DESC").page(params[:page])#userの投稿一覧
     end
-    @followings = @user.followings.where(is_stopped: false)#userがフォロー中のuser一覧
-    @followers = @user.followers.where(is_stopped: false)#userをフォローしているuser一覧
+    @followings = @user.followings.where(is_stopped: false).page(params[:page])#userがフォロー中のuser一覧
+    @followers = @user.followers.where(is_stopped: false).page(params[:page])#userをフォローしているuser一覧
 
     # #userの投稿一覧
     # @posts = @user.posts.order("created_at DESC").page(params[:page])
@@ -27,12 +26,11 @@ class UsersController < ApplicationController
     # favorite_post_ids = Favorite.where(user_id: @user).pluck(:post_id)
     # @favorite_posts = Post.includes(:user).where(
     #   users: {is_stopped: false},
-    #   posts: {id: favorite_post_ids}).order("posts.created_at DESC")
-    # @favorite_posts = Kaminari.paginate_array(@favorite_posts).page(params[:page])
-    
+    #   posts: {id: favorite_post_ids}).order("posts.created_at DESC").page(params[:page])
+
     # @followings = @user.followings.where(is_stopped: false)#userがフォロー中のuser一覧
     # @followers = @user.followers.where(is_stopped: false)#userをフォローしているuser一覧
-    
+
     # 停止されたユーザーの詳細ページは管理人のみアクセス可能
     if @user.is_stopped? && !(current_user && current_user.is_admin?)
       redirect_to root_path
@@ -74,5 +72,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :description, :is_stopped, :icon )
   end
-  
+
 end

@@ -9,24 +9,25 @@
       <!--タブ-->
       <ul class="nav nav-tabs">
         <li class="active nav-item">
-          <%= link_to "ユーザーの投稿一覧", user_path(@user), class: "nav-link #{@posts.present? ? 'active-tab' : ''}" %>
+          <%= link_to "ユーザーの投稿一覧", user_path(@user), class: "nav-link #{'active-tab' if params[:tab_type].nil?}" %>
         </li>
         <li class="nav-item">
-          <%= link_to "いいね！した投稿一覧", user_path(@user, tab_type: 'favorite_posts'), class: "nav-link #{@favorite_posts.present? ? 'active-tab' : ''}" %>
+          <%= link_to "いいね！した投稿一覧", user_path(@user, tab_type: 'favorite_posts'), class: "nav-link #{'active-tab' if params[:tab_type] == 'favorite_posts'}" %>
         </li>
         <li class="nav-item">
-          <%= link_to "フォロー中一覧", user_path(@user, tab_type: 'followings'), class: "nav-link #{@followings_tab.present? ? 'active-tab' : ''}" %>
+          <%= link_to "フォロー中一覧", user_path(@user, tab_type: 'followings'), class: "nav-link #{'active-tab' if params[:tab_type] == 'followings'}" %>
         </li>
         <li class="nav-item">
-          <%= link_to "フォロワー一覧", user_path(@user, tab_type: 'followers'), class: "nav-link #{@followers_tab.present? ? 'active-tab' : ''}" %>
+          <%= link_to "フォロワー一覧", user_path(@user, tab_type: 'followers'), class: "nav-link #{'active-tab' if params[:tab_type] == 'followers'}" %>
         </li>
       </ul>
       <div class="tab-content">
-        <% if @favorite_posts.present? %>
+        <%# if @favorite_posts.present? %>
+        <% if params[:tab_type] == 'favorite_posts' %>
           <%= render 'posts/index', posts: @favorite_posts, line: false %>
-        <% elsif @followings_tab.present? %>
+        <% elsif params[:tab_type] == 'followings' %>
           <%= render 'index', users: @followings %>
-        <% elsif @followers_tab.present? %>
+        <% elsif params[:tab_type] == 'followers' %>
           <%= render 'index', users: @followers %>
         <% else %>
           <%= render 'posts/index', posts: @posts, line: false %>
