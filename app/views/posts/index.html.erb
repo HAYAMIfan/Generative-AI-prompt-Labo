@@ -22,7 +22,8 @@
       </h3>
       <%= render "search_form", q: @q %>
     </div>
-    <%= render "index", posts: @posts, line: false %>
-    </div>
+    <!--<div class="scroll-area scroll-area-for-index">-->
+    <%= render "index", posts: @posts, line: false, other_class: 'scroll-area-for-index overflow-y-scroll' %>
+    <!--</div>-->
   </div>
 </div>

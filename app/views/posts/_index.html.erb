@@ -1,4 +1,7 @@
-<div class="<%= line ? 'card-line overflow-auto' : 'card-box scroll-list jscroll' %>" style="max-width: 1450px">
+<% parts_name ||= 'default' %>
+<% other_class ||= 'scroll-area-for-top overflow-y-scroll' %>
+<div class="w-100 scroll-area<%= other_class.present? ? " #{other_class}" : '' %><%= parts_name.present? ? " #{parts_name}" : '' %>">
+<div class="<%= line ? 'card-line' : "card-box scroll-list_#{parts_name} jscroll_#{parts_name}" %>" style="max-width: 1450px">
   <% posts.each do |post| %>
     <%= link_to post_path(post) do %>
     <!--カード一つ一つ-->
@@ -18,19 +21,30 @@
       </div>
     <% end %>
   <% end %>
-  <%= paginate posts %>
+  <div class="<%= parts_name.presence %>">
+    <%= paginate posts %>
+  </div>
+</div>
 </div>
 
 <script>
+
+$('.<%= parts_name.present? ? parts_name : 'scroll-area' %>').on('scroll', function() {
+  $('.jscroll_<%= parts_name.present? ? parts_name : '' %>').jscroll({
+    contentSelector: '.scroll-list_<%= parts_name.presence %>',
+    nextSelector: '<%= parts_name.present? ? ".#{parts_name} span.next:last a" : 'span.next:last a' %>'
+  });
+})
+
   // 無限スクロールの処理
-$(window).on('scroll', function() {
-    scrollHeight = $(document).height();
-    scrollPosition = $(window).height() + $(window).scrollTop();
-    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-          $('.jscroll').jscroll({
-            contentSelector: '.scroll-list',
-            nextSelector: 'span.next:last a'
-          });
-    }
-});
+// $(window).on('scroll', function() {
+//     scrollHeight = $(document).height();
+//     scrollPosition = $(window).height() + $(window).scrollTop();
+//     if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+//           $('.jscroll').jscroll({
+//             contentSelector: '.scroll-list',
+//             nextSelector: 'span.next:last a'
+//           });
+//     }
+// });
 </script>

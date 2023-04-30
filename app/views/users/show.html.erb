@@ -5,7 +5,7 @@
       <%= render 'info', user: @user %>
     </div>
     <!--右側・各種一覧-->
-    <div class="border border-2" style="max-width: 1410px">
+    <div class="border border-2 w-100">
       <!--タブ-->
       <ul class="nav nav-tabs">
         <li class="active nav-item">
@@ -24,13 +24,13 @@
       <div class="tab-content">
         <%# if @favorite_posts.present? %>
         <% if params[:tab_type] == 'favorite_posts' %>
-          <%= render 'posts/index', posts: @favorite_posts, line: false %>
+          <%= render 'posts/index', posts: @favorite_posts, line: false, other_class: 'scroll-area-for-index overflow-y-scroll' %>
         <% elsif params[:tab_type] == 'followings' %>
           <%= render 'index', users: @followings %>
         <% elsif params[:tab_type] == 'followers' %>
           <%= render 'index', users: @followers %>
         <% else %>
-          <%= render 'posts/index', posts: @posts, line: false %>
+          <%= render 'posts/index', posts: @posts, line: false, other_class: 'scroll-area-for-index overflow-y-scroll' %>
         <% end %>
       </div><!--タブの中身ここまで-->
     </div><!--右側ここまで-->

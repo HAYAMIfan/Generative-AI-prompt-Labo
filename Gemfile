@@ -65,6 +65,8 @@ gem "image_processing", ">= 1.2"
 
 gem 'activestorage-validator'
 
+gem 'order_as_specified'
+
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'

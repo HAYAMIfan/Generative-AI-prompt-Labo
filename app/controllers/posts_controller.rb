@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @tag = @post.tags.pluck(:tag_name).join(nil)
+    @tag = @post.tags.pluck(:tag_name).join(" ")
     user_id = @post.user_id
     # 管理者以外のユーザーが他人の投稿のeditページに移動できないようにする
     unless user_id == current_user.id || current_user.is_admin?
@@ -38,12 +38,12 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    # @tag_list = Tag.includes(:post_tags)
-    #           .select('tags.*, COUNT(post_tags.post_id) AS post_count')
-    #           .group('tags.id')
-    #           .order('post_count DESC')
-    #           .limit(20)
-    @tag_list = Tag.includes(:post_tags).distinct.all
+    @tag_list = Tag.joins(:post_tags)
+                   .select('tags.*, count(tags.id) as tags_count')
+                   .group('tags.id')
+                   .order('tags_count DESC', 'tags.id DESC')
+                   .limit(20)
+    # @tag_list = Tag.includes(:post_tags).distinct.all
 
     if params[:q].present?#キーワード検索結果
       @posts = Post.search_by_keyword(query: @q)

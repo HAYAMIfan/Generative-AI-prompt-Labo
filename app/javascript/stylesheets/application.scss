@@ -57,7 +57,7 @@
   font-weight: bold;
   margin: auto 1em auto 0;
 }
-// 通常のindex表示の外枠
+// 投稿のindex表示の外枠
 .card-box{
   margin-top: 0.5rem;
 }
@@ -99,4 +99,20 @@
 // 無限スクロール用
 nav.pagination{
   display: none;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
+.overflow-y-none {
+  overflow-y: none;
+}
+
+.scroll-area-for-top {
+  height: 300px;
+}
+
+.scroll-area-for-index {
+  height: calc(1080px - 130px - 70px);
 }

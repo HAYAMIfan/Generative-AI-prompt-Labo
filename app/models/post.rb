@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  extend OrderAsSpecified
+
   has_many_attached :images
   belongs_to :user
   has_many :favorites, dependent: :destroy
@@ -36,7 +38,12 @@ class Post < ApplicationRecord
   end
 # 週間のお気に入り数でランキングを作成する
   def self.create_all_ranks
-    Post.joins(:user).left_joins(:weekly_favorites).where(user: { is_stopped: false} ).group(:id).order("count(favorites.post_id) desc")
+    # TODO: デプロイ時にこの箇所でエラーが出た場合、order_as_specifiedが原因の可能性が高い
+    # refs: https://github.com/panorama-ed/order_as_specified
+    favorites = Favorite.where(created_at: Time.current.ago(7.days)..Time.current).group(:post_id).order('count(post_id) desc').pluck(:post_id)
+    Post.where(id: favorites).order_as_specified(id: favorites)
+
+    # Post.joins(:user).left_joins(:weekly_favorites).where(user: { is_stopped: false} ).group(:id).order("count(favorites.post_id) desc")
 #    Post.includes(:user).where(
 #      users:{is_stopped: false},
 #      posts:{id: Favorite.group(:post_id).where(created_at: Time.current.ago(7.days)..Time.current).order('count(post_id) desc').pluck(:post_id)}

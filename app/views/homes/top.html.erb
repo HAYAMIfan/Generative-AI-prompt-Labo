@@ -4,7 +4,7 @@
     <p>生成AIにどんな文章(＝呪文)を入力すれば課題を解決できるかを探るべく、呪文に関する皆の知見を纏めるための研究所です。</p>
     <h5 class="text-center font-weight-bold">お知らせ</h5>
   </div>
-  <div style="max-width: 1410px">
+  <div>
     <!--ランキング-->
     <div class="mt-2">
       <div class="d-flex">
@@ -12,17 +12,19 @@
         <%= link_to "すべて見る", posts_path(ranking: true), class: "link" %>
       </div>
       <div>
-        <%= render "posts/index", posts: @all_ranks, line: true %>
+        <%= render "posts/index", posts: @all_ranks, line: true, other_class: 'overflow-y-none' %>
       </div>
     </div>
     <!--フォロー中-->
     <% if @following_posts.present? %>
       <div class="mt-2">
         <div class="d-flex">
-        <p class="font-weight-bold mr-2">フォロー中</p>
-        <%= link_to "すべて見る", posts_path(following: true), class: "link" %>
-      </div>
-        <%= render "posts/index", posts: @following_posts, line: true %>
+          <p class="font-weight-bold mr-2">フォロー中</p>
+          <%= link_to "すべて見る", posts_path(following: true), class: "link" %>
+        </div>
+        <!--<div class="scroll-area scroll-area-for-top">-->
+          <%= render "posts/index", posts: @following_posts, line: false, parts_name: 'following_posts' %>
+        <!--</div>-->
       </div>
     <% end %>
     <!--新着投稿-->
@@ -31,7 +33,9 @@
         <p class="font-weight-bold mr-2">新着投稿</p>
         <%= link_to "すべて見る", posts_path, class: "link" %>
       </div>
-      <%= render "posts/index", posts: @posts, line: false %>
+      <!--<div class="scroll-area scroll-area-for-top">-->
+        <%= render "posts/index", posts: @posts, line: false, parts_name: 'posts' %>
+      <!--</div>-->
     </div>
   </div>
 
